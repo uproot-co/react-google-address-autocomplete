@@ -1,0 +1,5 @@
+query AutoComplete($query: String!) {
+    fetchAutoCompleteAddresses(query: $query) {
+        matchedAddress
+    }
+}

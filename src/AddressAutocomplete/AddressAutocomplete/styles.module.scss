@@ -1,0 +1,43 @@
+@import '../theme/helper.scss';
+
+.addressAutocompleteWrapper {
+    width: 100%;
+}
+
+.editAddress {
+    display: inline-flex;
+    color: var(--ion-color-primary);
+
+    .address {
+        font-weight: bold;
+        text-transform: capitalize;
+        font-size: 0.875rem;
+        padding-top: 0.125rem;
+        margin-right: 0.3125rem;
+        height: 1.875rem;
+        line-height: 2em;
+        white-space: nowrap;
+
+        @mixin address-responsive {
+            font-size: 0.8125rem;
+        }
+
+        @media only screen and (max-width: $mobile-breakpoint) {
+            @include address-responsive;
+        }
+
+        &-mobile {
+            @include address-responsive;
+        }
+    }
+
+    .editButton {
+        background: var(--ion-color-tertiary);
+
+        .ionIcon {
+            color: #929292;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+    }
+}
