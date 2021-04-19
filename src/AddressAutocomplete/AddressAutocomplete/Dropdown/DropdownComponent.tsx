@@ -1,10 +1,14 @@
+import {
+  Address,
+  AddressItem,
+  DropdownContainer,
+  PinIcon,
+} from './DropdownStyledComponents';
 import { AddressAutoComplete } from '../../@types/generated-gql-typed-hooks';
 import _reverse from 'lodash/reverse';
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
-
-import styles from './styles.module.scss';
 
 type Props = {
   predictedAddresses: { [key: string]: string }[];
@@ -51,7 +55,7 @@ const DropdownComponent: React.FC<Props> = ({
   }
 
   return ReactDOM.createPortal(
-    <div
+    <DropdownContainer
       // Adding styles inline here only because values are received as props
       style={{
         ...(showAtBottom
@@ -60,24 +64,20 @@ const DropdownComponent: React.FC<Props> = ({
         left: `${xPosition}px`,
         maxWidth: `${refWidth}px`,
       }}
-      className={styles.dropdownContainer}
       ref={dropDownDivRef}
     >
       {addresses.map((item: any, index) => {
         return (
-          <div key={index} className={styles.addressItem}>
-            <div className={styles.pinIcon}>{pinIcon}</div>
-            <span
-              onClick={() => onSelect(item)}
-              className={styles.address}
-            >
+          <AddressItem key={index}>
+            <PinIcon>{pinIcon}</PinIcon>
+            <Address onClick={() => onSelect(item)}>
               {item.matchedAddress}
-            </span>
+            </Address>
             <hr />
-          </div>
+          </AddressItem>
         );
       })}
-    </div>,
+    </DropdownContainer>,
     // @ts-ignore
     document.getElementById('root')
   );

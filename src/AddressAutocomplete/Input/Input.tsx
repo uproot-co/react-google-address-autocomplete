@@ -5,11 +5,14 @@ import {
   InputTypes,
 } from './types';
 import _noop from 'lodash/noop';
-import cn from 'classnames';
 import ErrorOrDescription from './ErrorOrDescription';
 import Label from './Label';
 import React from 'react';
-import styles from './styles.module.scss';
+import {
+  InputFieldWrapper,
+  StyledInput,
+  IconBtn,
+} from './InputStyledComponents';
 
 const Input: React.FC<InputProps> = ({
   value,
@@ -30,20 +33,15 @@ const Input: React.FC<InputProps> = ({
   ...rest
 }) => {
   return (
-    <div className={styles.inputContainer}>
+    <div>
       {label && <Label label={label} required={required} />}
-      <span
-        className={cn(styles.inputFieldWrapper, styles[styleType])}
-      >
-        <input
+      <InputFieldWrapper className={styleType}>
+        <StyledInput
           autoComplete='off'
           name={name}
-          className={cn(
-            styles.input,
-            disabled && styles.disabled,
-            icon && styles.withIcon,
-            className
-          )}
+          className={`${disabled && 'disabled'} ${
+            icon && 'withIcon'
+          } ${className}`}
           type={type}
           value={value}
           onChange={handleChange}
@@ -52,15 +50,11 @@ const Input: React.FC<InputProps> = ({
           {...rest}
         />
         {icon && (
-          <button
-            className={styles.iconBtn}
-            onClick={iconClickHandler}
-            type='button'
-          >
+          <IconBtn onClick={iconClickHandler} type='button'>
             <div>{icon}</div>
-          </button>
+          </IconBtn>
         )}
-      </span>
+      </InputFieldWrapper>
       <ErrorOrDescription
         description={description}
         showError={showError}

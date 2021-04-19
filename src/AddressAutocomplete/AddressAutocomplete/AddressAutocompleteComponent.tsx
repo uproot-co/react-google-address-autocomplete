@@ -1,15 +1,20 @@
 import {
+  Address,
+  AddressAutocompleteWrapper,
+  AddressContainer,
+  EditButton,
+  Icon,
+} from './AddressStyledComponents';
+import {
   AddressAutoComplete,
   useAutoCompleteLazyQuery,
 } from '../@types/generated-gql-typed-hooks';
-import { getClass } from '../utils';
 import { InputProps } from '../Input/types';
 import { useFormContext } from 'react-hook-form';
 import Dropdown from './Dropdown';
 import get from 'lodash/get';
 import Input, { ConnectedInput, InputTypes } from '../Input';
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './styles.module.scss';
 
 type BaseProps = Pick<
   InputProps,
@@ -22,14 +27,12 @@ type BaseProps = Pick<
   selectedAddress?: string;
   toggle?: boolean;
 };
-
 interface ConnectedComponentProps extends BaseProps {
   isConnected: boolean;
   onPlaceSelected?: never;
   closeIcon?: React.ReactNode;
   pinIcon?: React.ReactNode;
 }
-
 interface UnconnectedComponentProps extends BaseProps {
   isConnected?: never;
   onPlaceSelected: (place: AddressAutoComplete) => void;
@@ -132,20 +135,14 @@ const AddressAutocompleteComponent: React.FC<
   }, [selectedAddress]);
 
   return address ? (
-    <div className={styles.editAddress}>
-      <p className={getClass(styles, 'address')}>{selectedAddress}</p>
-      <button
-        className={styles.editButton}
-        onClick={() => toggleEdit()}
-      >
-        <div className={styles.closeIcon}>{closeIcon}</div>
-      </button>
-    </div>
+    <AddressContainer>
+      <Address>{selectedAddress}</Address>
+      <EditButton onClick={() => toggleEdit()}>
+        <Icon>{closeIcon}</Icon>
+      </EditButton>
+    </AddressContainer>
   ) : (
-    <div
-      ref={inputContainerRef}
-      className={styles.addressAutocompleteWrapper}
-    >
+    <AddressAutocompleteWrapper ref={inputContainerRef}>
       {isConnected ? (
         <ConnectedInput
           className={className}
@@ -179,7 +176,7 @@ const AddressAutocompleteComponent: React.FC<
           pinIcon={pinIcon}
         />
       ) : null}
-    </div>
+    </AddressAutocompleteWrapper>
   );
 };
 
