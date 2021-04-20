@@ -1,3 +1,3 @@
-import {AddressAutocomplete } from "./AddressAutocomplete";
+import AddressAutocomplete from './AddressAutocomplete';
 
 export { AddressAutocomplete };
