@@ -4,6 +4,8 @@ const addressTextColor = '#0c6055'; //--ion-color-primary
 const editButtonColor = '#fff'; //--ion-color-tertiary
 const iconColor = '#929292;';
 
+const mobileBreakpoint = '48rem';
+
 const Address = styled.p`
     font-weight: bold;
     text-transform: capitalize;
@@ -14,7 +16,7 @@ const Address = styled.p`
     line-height: 2em;
     white-space: nowrap;
 
-    @media only screen and (max-width: $mobile-breakpoint) {
+    @media only screen and (max-width: ${mobileBreakpoint}) {
         font-size: 0.8125rem;
     }
 

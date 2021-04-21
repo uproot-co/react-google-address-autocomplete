@@ -11,6 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "AddressAutocomplete"],
   "exclude": ["node_modules", "build", "src/**/*.test.ts"]
 }

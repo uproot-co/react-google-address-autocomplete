@@ -1,10 +1,10 @@
 import { Address, AddressAutocompleteWrapper, AddressContainer, EditButton, Icon } from './AddressStyledComponents';
 import { AddressAutoComplete, useAutoCompleteLazyQuery } from '../@types/generated-gql-typed-hooks';
-import { InputProps } from '../Input/types';
+import { InputProps } from './Input/types';
 import { useFormContext } from 'react-hook-form';
 import Dropdown from './Dropdown';
 import get from 'lodash/get';
-import Input, { ConnectedInput, InputTypes } from '../Input';
+import Input, { ConnectedInput, InputTypes } from './Input';
 import React, { useEffect, useRef, useState } from 'react';
 
 type BaseProps = Pick<InputProps, 'styleType' | 'className' | 'placeholder'> & {
