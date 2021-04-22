@@ -1,1 +1,1 @@
-export { default } from './AddressAutocompleteComponent';
+export { default } from './AddressAutocomplete';

@@ -14,18 +14,17 @@ type BaseProps = Pick<InputProps, 'styleType' | 'className' | 'placeholder'> & {
     description?: string;
     selectedAddress?: string;
     toggle?: boolean;
+    editIcon?: React.ReactNode;
+    pinIcon?: React.ReactNode;
+    apolloClient?: any;
 };
 interface ConnectedComponentProps extends BaseProps {
     isConnected: boolean;
     onPlaceSelected?: never;
-    editIcon?: React.ReactNode;
-    pinIcon?: React.ReactNode;
 }
 interface UnconnectedComponentProps extends BaseProps {
     isConnected?: never;
     onPlaceSelected: (place: AddressAutoComplete) => void;
-    editIcon?: React.ReactNode;
-    pinIcon?: React.ReactNode;
 }
 
 /**
@@ -55,9 +54,10 @@ const AddressAutocompleteComponent: React.FC<ConnectedComponentProps | Unconnect
     description,
     editIcon = <div>&#x24E7;</div>,
     pinIcon,
+    apolloClient
 }) => {
     const formContext = useFormContext();
-    const [fetchAddresses, data] = useAutoCompleteLazyQuery();
+    const [fetchAddresses, data] = useAutoCompleteLazyQuery(apolloClient);
     const [inputValue, setInputValue] = useState<string>('');
     const [addressPredictions, setAddressPredictions] = useState([]);
     const [isDropDownOpen, toggleDropDown] = useState<boolean>(false);
