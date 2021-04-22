@@ -16,20 +16,20 @@ type BaseProps = Pick<InputProps, 'styleType' | 'className' | 'placeholder'> & {
     pinIcon?: React.ReactNode;
 };
 
-interface ConnectedComponentProps extends BaseProps {
+export interface ConnectedComponentProps extends BaseProps {
     isConnected: boolean;
     onPlaceSelected?: never;
 }
-interface UnconnectedComponentProps extends BaseProps {
+export interface UnconnectedComponentProps extends BaseProps {
     isConnected?: never;
     onPlaceSelected: (place: AddressAutoComplete) => void;
 }
 
 
-const App: React.FC<ConnectedComponentProps | UnconnectedComponentProps>  = ({apolloClient, ...rest}) => (
+const AddressAutocomplete: React.FC<ConnectedComponentProps | UnconnectedComponentProps>  = ({apolloClient, ...rest}) => (
             <ApolloProvider client={apolloClient}>
                 <AddressAutocompleteComponent {...rest}/>
             </ApolloProvider>
 );
 
-export default App;
+export default AddressAutocomplete;

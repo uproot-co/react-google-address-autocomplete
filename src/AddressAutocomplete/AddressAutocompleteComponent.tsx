@@ -1,31 +1,12 @@
 import { Address, AddressAutocompleteWrapper, AddressContainer, EditButton, Icon } from './AddressStyledComponents';
 import { AddressAutoComplete, useAutoCompleteLazyQuery } from '../@types/generated-gql-typed-hooks';
-import { InputProps } from './Input/types';
 import { useFormContext } from 'react-hook-form';
 import Dropdown from './Dropdown';
 import get from 'lodash/get';
 import Input, { ConnectedInput, InputTypes } from './Input';
 import React, { useEffect, useRef, useState } from 'react';
+import { ConnectedComponentProps, UnconnectedComponentProps} from './AddressAutocomplete';
 
-type BaseProps = Pick<InputProps, 'styleType' | 'className' | 'placeholder'> & {
-    name?: string;
-    label?: string;
-    required?: boolean;
-    description?: string;
-    selectedAddress?: string;
-    toggle?: boolean;
-    editIcon?: React.ReactNode;
-    pinIcon?: React.ReactNode;
-    apolloClient?: any;
-};
-interface ConnectedComponentProps extends BaseProps {
-    isConnected: boolean;
-    onPlaceSelected?: never;
-}
-interface UnconnectedComponentProps extends BaseProps {
-    isConnected?: never;
-    onPlaceSelected: (place: AddressAutoComplete) => void;
-}
 
 /**
  * AddressAutoComplete component is either 'connected' or 'not connected
@@ -40,6 +21,7 @@ interface UnconnectedComponentProps extends BaseProps {
  * - [ConnectedInput](https://gitlab.com/emilg/uproot-ui/-/blob/master/src/components/shared/Input/ConnectedInput/ConnectedInput.tsx)
  *
  */
+
 const AddressAutocompleteComponent: React.FC<ConnectedComponentProps | UnconnectedComponentProps> = ({
     name = 'auto_complete',
     label,
@@ -71,7 +53,6 @@ const AddressAutocompleteComponent: React.FC<ConnectedComponentProps | Unconnect
         isConnected && formContext.setValue(name, '');
     };
 
-    //need to fix typescript
     const handleOnchange = (event: React.ChangeEvent<HTMLInputElement> | null, stringValue: string | null) => {
         if (event?.target) setInputValue((event?.target as HTMLInputElement).value);
         else if (stringValue) setInputValue(stringValue);
