@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
-import useOnClickOutside from '../hooks/useOnClickOutside'
+import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
 
-const AddressDropdownComponent = ({
+const AddressDropdown = ({
   predictions = [],
   boundsReference,
   onSelect,
@@ -67,4 +67,4 @@ const AddressDropdownComponent = ({
   )
 }
 
-export default AddressDropdownComponent
+export default AddressDropdown;

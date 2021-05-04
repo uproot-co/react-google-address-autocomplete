@@ -9,6 +9,6 @@
 //   return <div className={styles.test}>Example Component: {text}</div>
 // }
 
-import AddressDropdown from './AddressAutocompleteDropdown'
+import AddressDropdown from './AddressAutocomplete'
 
 export default AddressDropdown
