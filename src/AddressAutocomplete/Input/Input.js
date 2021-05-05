@@ -10,26 +10,23 @@ const Input = ({
   autoFocus = true,
   handleOnChange,
   handleOnSubmit,
-  disabled,
-  name,
   error
 }) => {
+  const onChange = (e) => handleOnChange(e)
+
   return (
     <React.Fragment>
       <input
         type='text'
         name='search_address'
+        autoComplete='off'
         value={value}
         placeholder={placeholder}
         autoFocus={autoFocus}
-        disabled={disabled}
-        onChange={(e) => handleOnChange(e.target.value)}
+        onChange={onChange}
         onSubmit={handleOnSubmit}
         error={error}
       />
-      <button onClick={(e) => {}} disabled={value.length}>
-        <span>Search</span>
-      </button>
     </React.Fragment>
   )
 }
