@@ -12,6 +12,7 @@ const ReactGoogleAddressAutocomplete = ({
   handleOnChange,
   displayDefaultSubmitButton,
   onClickSubmitButton,
+  submitButtonStyles,
   submitButtonIsDisabled,
   isDropdownOpen,
   pinIcon,
@@ -19,11 +20,10 @@ const ReactGoogleAddressAutocomplete = ({
   boundsReference,
   onSelect,
   onClickOutside,
-  submitButtonStyles,
   error
 }) => {
   return (
-    <form onSubmit={onClickSubmitButton}>
+    <React.Fragment>
       {customInput || (
         <Input
           placeholder={inputPlaceholder}
@@ -33,11 +33,12 @@ const ReactGoogleAddressAutocomplete = ({
           error={error}
         />
       )}
-      {customSubmitButton && <customSubmitButton />}
+      {customSubmitButton && customSubmitButton}
       {displayDefaultSubmitButton && (
         <SubmitButton
           isDisabled={submitButtonIsDisabled}
           userDefinedStyles={submitButtonStyles}
+          onClickSubmitButton={onClickSubmitButton}
         />
       )}
       <AddressDropdown
@@ -47,7 +48,7 @@ const ReactGoogleAddressAutocomplete = ({
         onClickOutside={onClickOutside}
         pinIcon={pinIcon}
       />
-    </form>
+    </React.Fragment>
   )
 }
 

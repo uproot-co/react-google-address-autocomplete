@@ -7,16 +7,34 @@ const defaultSubmitButtonStyles = {
   borderRadius: '5px'
 }
 
-const SubmitButton = ({ isDisabled, userDefinedStyles }) => {
+const SubmitButton = ({
+  isDisabled,
+  userDefinedStyles,
+  onClickSubmitButton
+}) => {
   return (
     <button
-      type='submit'
+      onClick={(e) => {
+        handleSearchButtonClick()
+      }}
       disabled={isDisabled}
       style={userDefinedStyles || defaultSubmitButtonStyles}
     >
-      Submit
+      Search
     </button>
   )
 }
+
+// const SubmitButton = ({ isDisabled, userDefinedStyles }) => {
+//   return (
+//     <button
+//       type='submit'
+//       disabled={isDisabled}
+//       style={userDefinedStyles || defaultSubmitButtonStyles}
+//     >
+//       Submit
+//     </button>
+//   )
+// }
 
 export default SubmitButton
