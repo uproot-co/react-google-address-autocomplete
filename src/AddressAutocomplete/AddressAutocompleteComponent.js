@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Input from './Input'
 import AddressDropdown from './AddressDropdown'
 import SubmitButton from './SubmitButton'
@@ -9,19 +9,24 @@ const ReactGoogleAddressAutocomplete = ({
   inputPlaceholder,
   inputValue,
   inputAutoFocus,
-  handleOnChange,
+  handleOnInputChange,
   displayDefaultSubmitButton,
   onClickSubmitButton,
   submitButtonStyles,
   submitButtonIsDisabled,
-  isDropdownOpen,
   pinIcon,
   predictions,
   boundsReference,
-  onSelect,
+  onSelectAddress,
   onClickOutside,
   error
 }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(predictions.length)
+
+  useEffect(() => {
+    setIsDropdownOpen(predictions.length)
+  }, [predictions])
+
   return (
     <React.Fragment>
       {customInput || (
@@ -29,7 +34,7 @@ const ReactGoogleAddressAutocomplete = ({
           placeholder={inputPlaceholder}
           value={inputValue}
           autoFocus={inputAutoFocus}
-          handleOnChange={handleOnChange}
+          onInputChange={handleOnInputChange}
           error={error}
         />
       )}
@@ -38,16 +43,19 @@ const ReactGoogleAddressAutocomplete = ({
         <SubmitButton
           isDisabled={submitButtonIsDisabled}
           userDefinedStyles={submitButtonStyles}
-          onClickSubmitButton={onClickSubmitButton}
+          onClick={onClickSubmitButton}
         />
       )}
-      <AddressDropdown
-        predictions={predictions}
-        boundsReference={boundsReference}
-        onSelect={onSelect}
-        onClickOutside={onClickOutside}
-        pinIcon={pinIcon}
-      />
+      {isDropdownOpen && (
+        <AddressDropdown
+          predictions={predictions}
+          boundsReference={boundsReference}
+          onSelect={onSelectAddress}
+          onClickOutside={() => setIsDropdownOpen(false)}
+          pinIcon={pinIcon}
+          setIsDropdownOpen={setIsDropdownOpen}
+        />
+      )}
     </React.Fragment>
   )
 }

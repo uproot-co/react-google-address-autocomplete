@@ -14,9 +14,7 @@ const SubmitButton = ({
 }) => {
   return (
     <button
-      onClick={(e) => {
-        handleSearchButtonClick()
-      }}
+      onClick={onClickSubmitButton}
       disabled={isDisabled}
       style={userDefinedStyles || defaultSubmitButtonStyles}
     >
@@ -24,17 +22,5 @@ const SubmitButton = ({
     </button>
   )
 }
-
-// const SubmitButton = ({ isDisabled, userDefinedStyles }) => {
-//   return (
-//     <button
-//       type='submit'
-//       disabled={isDisabled}
-//       style={userDefinedStyles || defaultSubmitButtonStyles}
-//     >
-//       Submit
-//     </button>
-//   )
-// }
 
 export default SubmitButton

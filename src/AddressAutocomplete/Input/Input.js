@@ -8,7 +8,7 @@ const Input = ({
   placeholder,
   value = '',
   autoFocus = true,
-  handleOnChange,
+  onInputChange,
   error
 }) => {
   return (
@@ -20,7 +20,8 @@ const Input = ({
       placeholder='Search officials by address (street, city, state)'
       name='search_address'
       error={error}
-      onChange={(e) => handleOnChange(e.target.value)}
+      onChange={onInputChange}
+      autoComplete='off'
     />
   )
 }

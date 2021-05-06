@@ -7,7 +7,8 @@ const AddressDropdown = ({
   boundsReference,
   onSelect,
   onClickOutside,
-  pinIcon
+  pinIcon,
+  setIsDropdownOpen
 }) => {
   const domRect = boundsReference.current?.getBoundingClientRect()
   const dropdownDivRef = useRef(null)
@@ -58,7 +59,14 @@ const AddressDropdown = ({
                 {pinIcon}
               </div>
             )}
-            <span onClick={() => onSelect(item)}>{item.matchedAddress}</span>
+            <span
+              onClick={() => {
+                onSelect(item)
+                setIsDropdownOpen(false)
+              }}
+            >
+              {item.matchedAddress}
+            </span>
             <hr />
           </div>
         )
@@ -67,4 +75,4 @@ const AddressDropdown = ({
   )
 }
 
-export default AddressDropdown;
+export default AddressDropdown
