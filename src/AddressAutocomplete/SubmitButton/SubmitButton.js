@@ -7,14 +7,10 @@ const defaultSubmitButtonStyles = {
   borderRadius: '5px'
 }
 
-const SubmitButton = ({
-  isDisabled,
-  userDefinedStyles,
-  onClickSubmitButton
-}) => {
+const SubmitButton = ({ isDisabled, userDefinedStyles, onClick }) => {
   return (
     <button
-      onClick={onClickSubmitButton}
+      onClick={onClick}
       disabled={isDisabled}
       style={userDefinedStyles || defaultSubmitButtonStyles}
     >

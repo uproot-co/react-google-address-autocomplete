@@ -22,9 +22,10 @@ const ReactGoogleAddressAutocomplete = ({
   error
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(predictions.length)
+  const [addressHasBeenSelected, setAddressHasBeenSelected] = useState(false)
 
   useEffect(() => {
-    setIsDropdownOpen(predictions.length)
+    !addressHasBeenSelected && setIsDropdownOpen(predictions.length)
   }, [predictions])
 
   return (
@@ -46,16 +47,17 @@ const ReactGoogleAddressAutocomplete = ({
           onClick={onClickSubmitButton}
         />
       )}
-      {isDropdownOpen && (
+      {isDropdownOpen ? (
         <AddressDropdown
           predictions={predictions}
           boundsReference={boundsReference}
           onSelect={onSelectAddress}
+          setAddressHasBeenSelected={setAddressHasBeenSelected}
           onClickOutside={() => setIsDropdownOpen(false)}
           pinIcon={pinIcon}
           setIsDropdownOpen={setIsDropdownOpen}
         />
-      )}
+      ) : null}
     </React.Fragment>
   )
 }

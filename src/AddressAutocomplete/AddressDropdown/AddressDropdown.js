@@ -8,6 +8,7 @@ const AddressDropdown = ({
   onSelect,
   onClickOutside,
   pinIcon,
+  setAddressHasBeenSelected,
   setIsDropdownOpen
 }) => {
   const domRect = boundsReference.current?.getBoundingClientRect()
@@ -62,6 +63,7 @@ const AddressDropdown = ({
             <span
               onClick={() => {
                 onSelect(item)
+                setAddressHasBeenSelected(true)
                 setIsDropdownOpen(false)
               }}
             >
