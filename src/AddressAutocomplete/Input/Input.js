@@ -1,22 +1,29 @@
 import React from 'react'
 
-// required props:  handleOnChange, handleOnSubmit(?)
-// optional props: placeholder, autoFocus, disabled, error(?)
-// to style --
+const defaultInputStyles = {
+  padding: '5px',
+  margin: '5px',
+  borderRadius: '5px',
+  border: '1px solid black',
+  width: '50%'
+}
 
 const Input = ({
   placeholder,
   value = '',
   autoFocus = true,
+  isDisabled,
   onInputChange,
-  error
+  error,
+  userDefinedStyles
 }) => {
   return (
     <input
+      style={userDefinedStyles || defaultInputStyles}
       type='text'
       value={value}
       autoFocus={autoFocus || true}
-      // disabled={isLoading}
+      disabled={isDisabled}
       placeholder='Search officials by address (street, city, state)'
       name='search_address'
       error={error}
@@ -27,30 +34,3 @@ const Input = ({
 }
 
 export default Input
-
-// const Input = ({
-//   placeholder,
-//   value = '',
-//   autoFocus = true,
-//   handleOnChange,
-//   handleOnSubmit,
-//   error
-// }) => {
-//   const onChange = (e) => handleOnChange(e)
-
-//   return (
-//     <React.Fragment>
-//       <input
-//         type='text'
-//         name='search_address'
-//         autoComplete='off'
-//         value={value}
-//         placeholder={placeholder}
-//         autoFocus={autoFocus}
-//         onChange={onChange}
-//         onSubmit={handleOnSubmit}
-//         error={error}
-//       />
-//     </React.Fragment>
-//   )
-// }

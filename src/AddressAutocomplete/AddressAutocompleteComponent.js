@@ -9,11 +9,12 @@ const ReactGoogleAddressAutocomplete = ({
   inputPlaceholder,
   inputValue,
   inputAutoFocus,
+  inputStyles,
   handleOnInputChange,
   displayDefaultSubmitButton,
+  defaultSubmitButtonIsDisabled,
   onClickSubmitButton,
   submitButtonStyles,
-  submitButtonIsDisabled,
   pinIcon,
   predictions,
   boundsReference,
@@ -37,12 +38,13 @@ const ReactGoogleAddressAutocomplete = ({
           autoFocus={inputAutoFocus}
           onInputChange={handleOnInputChange}
           error={error}
+          userDefinedStyles={inputStyles}
         />
       )}
       {customSubmitButton && customSubmitButton}
       {displayDefaultSubmitButton && (
         <SubmitButton
-          isDisabled={submitButtonIsDisabled}
+          isDisabled={defaultSubmitButtonIsDisabled}
           userDefinedStyles={submitButtonStyles}
           onClick={onClickSubmitButton}
         />

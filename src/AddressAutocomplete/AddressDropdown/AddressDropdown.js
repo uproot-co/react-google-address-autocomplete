@@ -2,6 +2,12 @@ import React, { useRef } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
 
+const defaultAddressDropdownStyles = {
+  padding: '5px',
+  margin: '5px',
+  width: '100%'
+}
+
 const AddressDropdown = ({
   predictions = [],
   boundsReference,
@@ -9,7 +15,8 @@ const AddressDropdown = ({
   onClickOutside,
   pinIcon,
   setAddressHasBeenSelected,
-  setIsDropdownOpen
+  setIsDropdownOpen,
+  userDefinedStyles
 }) => {
   const domRect = boundsReference.current?.getBoundingClientRect()
   const dropdownDivRef = useRef(null)
@@ -43,36 +50,39 @@ const AddressDropdown = ({
       style={{
         top: `${yPosition + offset}px`,
         left: `${xPosition}px`,
-        maxWidth: `${refWidth}px`
+        // maxWidth: `${refWidth}px`
+        maxWidth: '400px'
       }}
       ref={dropdownDivRef}
     >
-      {addresses.map((item, index) => {
-        return (
-          <div
-            key={index}
-            style={{
-              cursor: 'pointer'
-            }}
-          >
-            {pinIcon && (
-              <div style={{ marginRight: '5px', display: 'inline' }}>
-                {pinIcon}
-              </div>
-            )}
-            <span
-              onClick={() => {
-                onSelect(item)
-                setAddressHasBeenSelected(true)
-                setIsDropdownOpen(false)
+      <div style={userDefinedStyles || defaultAddressDropdownStyles}>
+        {addresses.map((item, index) => {
+          return (
+            <div
+              key={index}
+              style={{
+                cursor: 'pointer'
               }}
             >
-              {item.matchedAddress}
-            </span>
-            <hr />
-          </div>
-        )
-      })}
+              {pinIcon && (
+                <div style={{ marginRight: '5px', display: 'inline' }}>
+                  {pinIcon}
+                </div>
+              )}
+              <span
+                onClick={() => {
+                  onSelect(item)
+                  setAddressHasBeenSelected(true)
+                  setIsDropdownOpen(false)
+                }}
+              >
+                {item.matchedAddress}
+              </span>
+              <hr />
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
