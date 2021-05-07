@@ -45,7 +45,7 @@ const ReactGoogleAddressAutocomplete = ({
       {displayDefaultSubmitButton && (
         <SubmitButton
           isDisabled={defaultSubmitButtonIsDisabled}
-          userDefinedStyles={submitButtonStyles}
+          submitButtonStyles={submitButtonStyles}
           onClick={onClickSubmitButton}
         />
       )}
