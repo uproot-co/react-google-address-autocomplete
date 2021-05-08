@@ -1,13 +1,5 @@
 import React from 'react'
 
-const defaultInputStyles = {
-  padding: '5px',
-  margin: '5px',
-  borderRadius: '5px',
-  border: '1px solid black',
-  width: '50%'
-}
-
 const Input = ({
   placeholder,
   value = '',
@@ -15,11 +7,11 @@ const Input = ({
   isDisabled,
   onInputChange,
   error,
-  userDefinedStyles
+  userDefinedStyles = {}
 }) => {
   return (
     <input
-      style={userDefinedStyles || defaultInputStyles}
+      style={userDefinedStyles}
       type='text'
       value={value}
       autoFocus={autoFocus || true}

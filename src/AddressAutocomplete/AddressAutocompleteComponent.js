@@ -9,18 +9,19 @@ const ReactGoogleAddressAutocomplete = ({
   inputPlaceholder,
   inputValue,
   inputAutoFocus,
-  inputStyles,
   handleOnInputChange,
   displayDefaultSubmitButton,
   defaultSubmitButtonIsDisabled,
   onClickSubmitButton,
-  submitButtonStyles,
   pinIcon,
   predictions,
   boundsReference,
   onSelectAddress,
   onClickOutside,
-  error
+  error,
+  inputStyles,
+  addressDropdownStyles,
+  submitButtonStyles
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(predictions.length)
   const [addressHasBeenSelected, setAddressHasBeenSelected] = useState(false)
@@ -45,7 +46,7 @@ const ReactGoogleAddressAutocomplete = ({
       {displayDefaultSubmitButton && (
         <SubmitButton
           isDisabled={defaultSubmitButtonIsDisabled}
-          submitButtonStyles={submitButtonStyles}
+          userDefinedStyles={submitButtonStyles}
           onClick={onClickSubmitButton}
         />
       )}
@@ -58,6 +59,7 @@ const ReactGoogleAddressAutocomplete = ({
           onClickOutside={() => setIsDropdownOpen(false)}
           pinIcon={pinIcon}
           setIsDropdownOpen={setIsDropdownOpen}
+          userDefinedStyles={addressDropdownStyles}
         />
       ) : null}
     </React.Fragment>

@@ -2,12 +2,6 @@ import React, { useRef } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
 
-const defaultAddressDropdownStyles = {
-  padding: '5px',
-  margin: '5px',
-  width: '100%'
-}
-
 const AddressDropdown = ({
   predictions = [],
   boundsReference,
@@ -50,12 +44,11 @@ const AddressDropdown = ({
       style={{
         top: `${yPosition + offset}px`,
         left: `${xPosition}px`,
-        // maxWidth: `${refWidth}px`
-        maxWidth: '400px'
+        maxWidth: `${refWidth}px`
       }}
       ref={dropdownDivRef}
     >
-      <div style={userDefinedStyles || defaultAddressDropdownStyles}>
+      <div style={userDefinedStyles}>
         {addresses.map((item, index) => {
           return (
             <div
