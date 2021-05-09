@@ -30,6 +30,10 @@ const ReactGoogleAddressAutocomplete = ({
     !addressHasBeenSelected && setIsDropdownOpen(predictions.length)
   }, [predictions])
 
+  useEffect(() => {
+    predictions.length > 1 && setAddressHasBeenSelected(false)
+  }, [inputValue])
+
   return (
     <React.Fragment>
       {customInput || (
