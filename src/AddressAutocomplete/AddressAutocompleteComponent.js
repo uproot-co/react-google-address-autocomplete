@@ -7,42 +7,68 @@ const ReactGoogleAddressAutocomplete = ({
   customInput,
   customSubmitButton,
   inputPlaceholder,
-  inputValue,
-  inputAutoFocus,
-  handleOnInputChange,
+  inputAutoFocus = true,
   displayDefaultSubmitButton,
   defaultSubmitButtonIsDisabled,
   onClickSubmitButton,
   pinIcon,
-  predictions,
+  fetchPredictions, // required function that accepts as an arg the inputValue stored in this component and returns an array of objects, each of which has a "matchedAddress" property
   boundsReference,
-  onSelectAddress,
-  onClickOutside,
   error,
   inputStyles,
   addressDropdownStyles,
   submitButtonStyles
 }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(predictions.length)
-  const [addressHasBeenSelected, setAddressHasBeenSelected] = useState(false)
+  const [inputAddressError, setInputAddressError] = useState('')
+  const [selectedAddress, setSelectedAddress] = useState('')
+  const [predictions, setPredictions] = useState([])
+  const [inputValue, setInputValue] = useState('')
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   useEffect(() => {
-    !addressHasBeenSelected && setIsDropdownOpen(predictions.length)
+    predictions.length > 1 ? setIsDropdownOpen(true) : setIsDropdownOpen(false)
   }, [predictions])
 
   useEffect(() => {
-    predictions.length > 1 && setAddressHasBeenSelected(false)
-  }, [inputValue])
+    const getPredictions = async () => {
+      const predictions = await fetchPredictions(inputValue)
+      setPredictions(predictions)
+    }
+    !selectedAddress && getPredictions()
+  }, [inputValue, fetchPredictions])
+
+  useEffect(() => {
+    error && console.log(error)
+  }, [error])
+
+  const handleOnchange = (event) => {
+    setInputAddressError('')
+    setSelectedAddress('')
+    if (event?.target) setInputValue((event?.target).value)
+  }
+
+  const handleAddressSelected = (address) => {
+    setInputValue(address.matchedAddress)
+    setSelectedAddress(address.matchedAddress)
+    setPredictions([])
+    setIsDropdownOpen(false)
+  }
+
+  const handleOnSubmit = () => {
+    inputValue
+      ? onClickSubmitButton(inputValue)
+      : setInputAddressError('Please enter an address')
+  }
 
   return (
     <React.Fragment>
       {customInput || (
         <Input
           placeholder={inputPlaceholder}
-          value={inputValue}
+          value={inputAddressError || selectedAddress || inputValue}
           autoFocus={inputAutoFocus}
-          onInputChange={handleOnInputChange}
-          error={error}
+          onInputChange={handleOnchange}
+          error={inputAddressError}
           userDefinedStyles={inputStyles}
         />
       )}
@@ -51,15 +77,14 @@ const ReactGoogleAddressAutocomplete = ({
         <SubmitButton
           isDisabled={defaultSubmitButtonIsDisabled}
           userDefinedStyles={submitButtonStyles}
-          onClick={onClickSubmitButton}
+          onClick={handleOnSubmit}
         />
       )}
       {isDropdownOpen ? (
         <AddressDropdown
           predictions={predictions}
           boundsReference={boundsReference}
-          onSelect={onSelectAddress}
-          setAddressHasBeenSelected={setAddressHasBeenSelected}
+          onSelect={handleAddressSelected}
           onClickOutside={() => setIsDropdownOpen(false)}
           pinIcon={pinIcon}
           setIsDropdownOpen={setIsDropdownOpen}

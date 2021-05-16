@@ -37,6 +37,9 @@ const AddressDropdown = ({
       window.innerHeight - yPosition <= threshold ? showAtTop : showAtBottom
     addresses = Math.sign(offset) === -1 ? _reverse([...addresses]) : addresses
   }
+  const defaultStyles = {
+    backgroundColor: 'white'
+  }
 
   return (
     <div
@@ -48,7 +51,7 @@ const AddressDropdown = ({
       }}
       ref={dropdownDivRef}
     >
-      <div style={userDefinedStyles}>
+      <div style={userDefinedStyles || defaultStyles}>
         {addresses.map((item, index) => {
           return (
             <div
@@ -65,8 +68,6 @@ const AddressDropdown = ({
               <span
                 onClick={() => {
                   onSelect(item)
-                  setAddressHasBeenSelected(true)
-                  setIsDropdownOpen(false)
                 }}
               >
                 {item.matchedAddress}
