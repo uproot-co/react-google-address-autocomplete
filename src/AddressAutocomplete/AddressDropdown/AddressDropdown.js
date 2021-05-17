@@ -38,7 +38,8 @@ const AddressDropdown = ({
     addresses = Math.sign(offset) === -1 ? _reverse([...addresses]) : addresses
   }
   const defaultStyles = {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    position: 'absolute'
   }
 
   return (
@@ -51,7 +52,7 @@ const AddressDropdown = ({
       }}
       ref={dropdownDivRef}
     >
-      <div style={userDefinedStyles || defaultStyles}>
+      <div style={{ ...defaultStyles, ...userDefinedStyles }}>
         {addresses.map((item, index) => {
           return (
             <div

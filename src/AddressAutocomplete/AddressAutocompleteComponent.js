@@ -12,12 +12,13 @@ const ReactGoogleAddressAutocomplete = ({
   defaultSubmitButtonIsDisabled,
   onClickSubmitButton,
   pinIcon,
-  fetchPredictions, // required function that accepts as an arg the inputValue stored in this component and returns an array of objects, each of which has a "matchedAddress" property
+  fetchPredictions, // required function that accepts the inputValue stored in this component and returns an array of objects, each with a "matchedAddress" property
   boundsReference,
   error,
   inputStyles,
   addressDropdownStyles,
-  submitButtonStyles
+  submitButtonStyles,
+  children
 }) => {
   const [inputAddressError, setInputAddressError] = useState('')
   const [selectedAddress, setSelectedAddress] = useState('')
@@ -32,7 +33,7 @@ const ReactGoogleAddressAutocomplete = ({
   useEffect(() => {
     const getPredictions = async () => {
       const predictions = await fetchPredictions(inputValue)
-      setPredictions(predictions)
+      predictions && setPredictions(predictions)
     }
     !selectedAddress && getPredictions()
   }, [inputValue, fetchPredictions])
@@ -42,6 +43,7 @@ const ReactGoogleAddressAutocomplete = ({
   }, [error])
 
   const handleOnchange = (event) => {
+    console.log(event.target.value)
     setInputAddressError('')
     setSelectedAddress('')
     if (event?.target) setInputValue((event?.target).value)
@@ -60,9 +62,18 @@ const ReactGoogleAddressAutocomplete = ({
       : setInputAddressError('Please enter an address')
   }
 
+  // object of props to pass to customInput, to overwrite/add to its existing props as necessary
+  const replacementInputProps = {
+    onIonChange: (e) => console.log(e.target.value)
+  }
+
   return (
     <React.Fragment>
-      {customInput || (
+      {customInput && // render customInput and pass in props object
+        React.Children.map(customInput, (input) =>
+          React.cloneElement(input, { ...replacementInputProps }, null)
+        )}
+      {!customInput && (
         <Input
           placeholder={inputPlaceholder}
           value={inputAddressError || selectedAddress || inputValue}
