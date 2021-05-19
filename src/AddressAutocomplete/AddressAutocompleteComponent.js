@@ -4,7 +4,6 @@ import AddressDropdown from './AddressDropdown'
 import SubmitButton from './SubmitButton'
 
 const ReactGoogleAddressAutocomplete = ({
-  customInput = false,
   customSubmitButton,
   inputPlaceholder,
   inputAutoFocus = true,
@@ -18,7 +17,8 @@ const ReactGoogleAddressAutocomplete = ({
   inputStyles,
   addressDropdownStyles,
   submitButtonStyles,
-  onChangeName,
+  customInput = false, // set to true if using custom input
+  onChangeName, // required only if using custom input -- tells this component the name of the custom input's onChange function
   children
 }) => {
   const [inputAddressError, setInputAddressError] = useState('')
@@ -44,10 +44,10 @@ const ReactGoogleAddressAutocomplete = ({
   }, [error])
 
   const handleOnChange = (event) => {
-    customInput && console.log('this is from the GitHub component') //to be removed
     setInputAddressError('')
     setSelectedAddress('')
     if (event?.target) setInputValue((event?.target).value)
+    console.log(inputValue) // REMOVE LATER
   }
 
   const handleAddressSelected = (address) => {
@@ -63,21 +63,15 @@ const ReactGoogleAddressAutocomplete = ({
       : setInputAddressError('Please enter an address')
   }
 
-  // object of props to pass to customInput, to overwrite/add to its existing props as necessary
-  const revisedCustomInputProps = {
-    [onChangeName]: handleOnChange, // assigns handleOnChange function to whatever customInput's onChange function is called
-    // value: inputValue
-  }
-
-  // customInput &&
-  //   React.Children.map(children, (input) => console.log(input.props))
-
   return (
     <React.Fragment>
-      {customInput && // render customInput and pass in props object
-        React.Children.map(children, (input) =>
-          React.cloneElement(input, { ...revisedCustomInputProps }, null)
-        )}
+      {customInput &&
+        React.Children.map(children, (input) => {
+          const revisedCustomInputProps = {
+            [onChangeName]: handleOnChange // assigns handleOnChange function to whatever customInput's onChange function is called
+          }
+          return React.cloneElement(input, { ...revisedCustomInputProps }, null)
+        })}
       {!customInput && (
         <Input
           placeholder={inputPlaceholder}
