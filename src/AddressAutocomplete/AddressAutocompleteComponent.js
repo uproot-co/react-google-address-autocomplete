@@ -4,7 +4,7 @@ import AddressDropdown from './AddressDropdown'
 import SubmitButton from './SubmitButton'
 
 const ReactGoogleAddressAutocomplete = ({
-  customInput,
+  customInput = false,
   customSubmitButton,
   inputPlaceholder,
   inputAutoFocus = true,
@@ -18,6 +18,7 @@ const ReactGoogleAddressAutocomplete = ({
   inputStyles,
   addressDropdownStyles,
   submitButtonStyles,
+  onChangeName,
   children
 }) => {
   const [inputAddressError, setInputAddressError] = useState('')
@@ -42,8 +43,8 @@ const ReactGoogleAddressAutocomplete = ({
     error && console.log(error)
   }, [error])
 
-  const handleOnchange = (event) => {
-    console.log(event.target.value)
+  const handleOnChange = (event) => {
+    customInput && console.log('this is from the GitHub component') //to be removed
     setInputAddressError('')
     setSelectedAddress('')
     if (event?.target) setInputValue((event?.target).value)
@@ -63,22 +64,26 @@ const ReactGoogleAddressAutocomplete = ({
   }
 
   // object of props to pass to customInput, to overwrite/add to its existing props as necessary
-  const replacementInputProps = {
-    onIonChange: (e) => console.log(e.target.value)
+  const revisedCustomInputProps = {
+    [onChangeName]: handleOnChange, // assigns handleOnChange function to whatever customInput's onChange function is called
+    // value: inputValue
   }
+
+  // customInput &&
+  //   React.Children.map(children, (input) => console.log(input.props))
 
   return (
     <React.Fragment>
       {customInput && // render customInput and pass in props object
-        React.Children.map(customInput, (input) =>
-          React.cloneElement(input, { ...replacementInputProps }, null)
+        React.Children.map(children, (input) =>
+          React.cloneElement(input, { ...revisedCustomInputProps }, null)
         )}
       {!customInput && (
         <Input
           placeholder={inputPlaceholder}
           value={inputAddressError || selectedAddress || inputValue}
           autoFocus={inputAutoFocus}
-          onInputChange={handleOnchange}
+          onInputChange={handleOnChange}
           error={inputAddressError}
           userDefinedStyles={inputStyles}
         />
