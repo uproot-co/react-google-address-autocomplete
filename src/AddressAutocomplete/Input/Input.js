@@ -5,7 +5,7 @@ const Input = ({
   value = '',
   autoFocus = true,
   isDisabled,
-  onInputChange,
+  onChange,
   error,
   userDefinedStyles = {}
 }) => {
@@ -19,7 +19,7 @@ const Input = ({
       placeholder='Search officials by address (street, city, state)'
       name='search_address'
       error={error}
-      onChange={onInputChange}
+      onChange={onChange}
       autoComplete='off'
     />
   )

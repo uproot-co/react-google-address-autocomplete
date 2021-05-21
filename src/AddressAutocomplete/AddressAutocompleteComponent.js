@@ -7,6 +7,7 @@ const ReactGoogleAddressAutocomplete = ({
   customSubmitButton,
   inputPlaceholder,
   inputAutoFocus = true,
+  onInputChange,
   displayDefaultSubmitButton,
   defaultSubmitButtonIsDisabled,
   onClickSubmitButton,
@@ -44,6 +45,7 @@ const ReactGoogleAddressAutocomplete = ({
   }, [error])
 
   const handleOnChange = (event) => {
+    onInputChange && onInputChange()
     setInputAddressError('')
     setSelectedAddress('')
     if (event?.target) setInputValue((event?.target).value)
@@ -77,7 +79,7 @@ const ReactGoogleAddressAutocomplete = ({
           placeholder={inputPlaceholder}
           value={inputAddressError || selectedAddress || inputValue}
           autoFocus={inputAutoFocus}
-          onInputChange={handleOnChange}
+          onChange={handleOnChange}
           error={inputAddressError}
           userDefinedStyles={inputStyles}
         />
