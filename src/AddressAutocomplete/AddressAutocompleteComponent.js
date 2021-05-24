@@ -4,23 +4,22 @@ import AddressDropdown from './AddressDropdown'
 import SubmitButton from './SubmitButton'
 
 const ReactGoogleAddressAutocomplete = ({
-  customSubmitButton,
+  boundsReference,
+  fetchPredictions, // required function that accepts the inputValue stored in this component and returns an array of objects, each with a "matchedAddress" property
+  customInput,
+  onChangeName, // required only if using custom input -- tells this component the name of the custom input's onChange function
+  userOnInputChange, // optional --   any additional functionality that an input change needs to trigger
   inputPlaceholder,
   inputAutoFocus = true,
-  onInputChange,
+  customSubmitButton,
   displayDefaultSubmitButton,
   defaultSubmitButtonIsDisabled,
   onClickSubmitButton,
   pinIcon,
-  fetchPredictions, // required function that accepts the inputValue stored in this component and returns an array of objects, each with a "matchedAddress" property
-  boundsReference,
-  error,
   inputStyles,
   addressDropdownStyles,
   submitButtonStyles,
-  customInput = false, // set to true if using custom input
-  onChangeName, // required only if using custom input -- tells this component the name of the custom input's onChange function
-  children
+  error
 }) => {
   const [inputAddressError, setInputAddressError] = useState('')
   const [selectedAddress, setSelectedAddress] = useState('')
@@ -33,11 +32,14 @@ const ReactGoogleAddressAutocomplete = ({
   }, [predictions])
 
   useEffect(() => {
-    const getPredictions = async () => {
-      const predictions = await fetchPredictions(inputValue)
-      predictions && setPredictions(predictions)
+    if (inputValue) {
+      const getPredictions = async () => {
+        const predictions = await fetchPredictions(inputValue)
+        predictions && setPredictions(predictions)
+      }
+      !selectedAddress && getPredictions()
+      console.log(inputValue) // REMOVE LATER
     }
-    !selectedAddress && getPredictions()
   }, [inputValue, fetchPredictions])
 
   useEffect(() => {
@@ -45,11 +47,10 @@ const ReactGoogleAddressAutocomplete = ({
   }, [error])
 
   const handleOnChange = (event) => {
-    onInputChange && onInputChange()
+    userOnInputChange && userOnInputChange()
     setInputAddressError('')
     setSelectedAddress('')
     if (event?.target) setInputValue((event?.target).value)
-    console.log(inputValue) // REMOVE LATER
   }
 
   const handleAddressSelected = (address) => {
@@ -65,15 +66,16 @@ const ReactGoogleAddressAutocomplete = ({
       : setInputAddressError('Please enter an address')
   }
 
+  const renderCustomInput = (input) => {
+    const revisedCustomInputProps = {
+      [onChangeName]: handleOnChange // assign handleOnChange function to whatever customInput's onChange function is called
+    }
+    return React.cloneElement(input, { ...revisedCustomInputProps })
+  }
+
   return (
-    <React.Fragment>
-      {customInput &&
-        React.Children.map(children, (input) => {
-          const revisedCustomInputProps = {
-            [onChangeName]: handleOnChange // assigns handleOnChange function to whatever customInput's onChange function is called
-          }
-          return React.cloneElement(input, { ...revisedCustomInputProps }, null)
-        })}
+    <div>
+      {customInput && renderCustomInput(customInput)}
       {!customInput && (
         <Input
           placeholder={inputPlaceholder}
@@ -103,7 +105,7 @@ const ReactGoogleAddressAutocomplete = ({
           userDefinedStyles={addressDropdownStyles}
         />
       ) : null}
-    </React.Fragment>
+    </div>
   )
 }
 
