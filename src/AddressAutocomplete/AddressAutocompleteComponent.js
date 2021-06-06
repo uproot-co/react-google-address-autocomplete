@@ -66,8 +66,9 @@ const ReactGoogleAddressAutocomplete = ({
       : setInputAddressError('Please enter an address')
   }
 
-  const renderCustomInput = (input) => {
+  const addPropsToCustomInput = (input) => {
     const revisedCustomInputProps = {
+      // value: inputAddressError || selectedAddress || inputValue,
       [onChangeName]: handleOnChange // assign handleOnChange function to whatever customInput's onChange function is called
     }
     return React.cloneElement(input, { ...revisedCustomInputProps })
@@ -75,7 +76,7 @@ const ReactGoogleAddressAutocomplete = ({
 
   return (
     <div>
-      {customInput && renderCustomInput(customInput)}
+      {customInput && addPropsToCustomInput(customInput)}
       {!customInput && (
         <Input
           placeholder={inputPlaceholder}
