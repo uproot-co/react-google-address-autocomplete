@@ -6,7 +6,8 @@ import SubmitButton from './SubmitButton'
 const ReactGoogleAddressAutocomplete = ({
   boundsReference,
   fetchPredictions, // required function that accepts the inputValue stored in this component and returns an array of objects, each with a "matchedAddress" property
-  customInput,
+  CustomInput,
+  customInputProps,
   onChangeName, // required only if using custom input -- tells this component the name of the custom input's onChange function
   userOnInputChange, // optional --   any additional functionality that an input change needs to trigger
   inputPlaceholder,
@@ -40,7 +41,7 @@ const ReactGoogleAddressAutocomplete = ({
       !selectedAddress && getPredictions()
       console.log(inputValue) // REMOVE LATER
     }
-  }, [inputValue, fetchPredictions])
+  }, [inputValue])
 
   useEffect(() => {
     error && console.log(error)
@@ -50,7 +51,7 @@ const ReactGoogleAddressAutocomplete = ({
     userOnInputChange && userOnInputChange()
     setInputAddressError('')
     setSelectedAddress('')
-    if (event?.target) setInputValue((event?.target).value)
+    if (event?.target) setInputValue(event.target.value)
   }
 
   const handleAddressSelected = (address) => {
@@ -66,18 +67,17 @@ const ReactGoogleAddressAutocomplete = ({
       : setInputAddressError('Please enter an address')
   }
 
-  const addPropsToCustomInput = (input) => {
-    const revisedCustomInputProps = {
-      // value: inputAddressError || selectedAddress || inputValue,
-      [onChangeName]: handleOnChange // assign handleOnChange function to whatever customInput's onChange function is called
-    }
-    return React.cloneElement(input, { ...revisedCustomInputProps })
-  }
-
   return (
     <div>
-      {customInput && addPropsToCustomInput(customInput)}
-      {!customInput && (
+      {CustomInput ? (
+        <CustomInput
+          {...customInputProps}
+          {...{
+            [onChangeName]: handleOnChange,
+            value: inputAddressError || selectedAddress || inputValue
+          }}
+        />
+      ) : (
         <Input
           placeholder={inputPlaceholder}
           value={inputAddressError || selectedAddress || inputValue}
