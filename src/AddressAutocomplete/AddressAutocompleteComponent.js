@@ -8,13 +8,14 @@ const ReactGoogleAddressAutocomplete = ({
   fetchPredictions, // required function that accepts the inputValue stored in this component and returns an array of objects, each with a "matchedAddress" property
   CustomInput,
   customInputProps,
-  onChangeName, // required only if using custom input -- tells this component the name of the custom input's onChange function
+  onChangeName = 'onChange', // only necessary if custom input's onChange function is called something other than onChange
   userOnInputChange, // optional --   any additional functionality that an input change needs to trigger
   inputPlaceholder,
   inputAutoFocus = true,
   customSubmitButton,
   displayDefaultSubmitButton,
   defaultSubmitButtonIsDisabled,
+  onAddressSelected,
   onClickSubmitButton,
   pinIcon,
   inputStyles,
@@ -46,6 +47,10 @@ const ReactGoogleAddressAutocomplete = ({
   useEffect(() => {
     error && console.log(error)
   }, [error])
+
+  useEffect(() => {
+    selectedAddress.length && onAddressSelected && onAddressSelected(selectedAddress)
+  }, [selectedAddress])
 
   const handleOnChange = (event) => {
     userOnInputChange && userOnInputChange()
