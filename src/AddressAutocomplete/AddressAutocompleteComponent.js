@@ -9,7 +9,7 @@ const ReactGoogleAddressAutocomplete = ({
   fetchPredictions, // required function that accepts the inputValue stored in this component and returns an array of objects, each with a "matchedAddress" property
   CustomInput,
   customInputProps,
-  onChangeName = 'onChange', // only necessary if custom input's onChange function is called something other than onChange
+  onChangeName = 'onChange', // optional -- only necessary if custom input's onChange function is called something other than onChange
   userOnInputChange, // optional --   any additional functionality that an input change needs to trigger
   inputPlaceholder,
   inputAutoFocus = true,
@@ -74,6 +74,7 @@ const ReactGoogleAddressAutocomplete = ({
   }
 
   const handleToggle = () => {
+    console.log('handleToggle called from RGAA')
     setSelectedAddress('')
     setInputValue('')
     userOnToggle && userOnToggle()
@@ -91,76 +92,63 @@ const ReactGoogleAddressAutocomplete = ({
     onFocus: () => setClearX(inputValue.length >= 1),
     onBlur: () => setClearX(false)
   }
-  console.log(styles.input, ' input')
 
   return (
-    <div>
-      <div className={styles.hi}>This should be in hot pink</div>
-      <div className={styles.inputContainer}>
-        <span
-          className={styles.inputFieldWrapper}
-          style={toggleIcon && { display: 'flex' }}
-        >
-          {CustomInput ? (
-            <CustomInput
-              style={toggleIcon && { width: '87.6%' }}
-              {...customInputProps}
-              {...RGAAInputProps}
-            />
-          ) : (
-            <Input
-              {...RGAAInputProps}
-              placeholder={inputPlaceholder}
-              autoFocus={inputAutoFocus}
-              error={inputAddressError}
-              userDefinedStyles={inputStyles}
-              // className={
-              //   (styles.input,
-              //   defaultSubmitButtonIsDisabled && styles.disabled,
-              //   toggleIcon && styles.withIcon)
-              // }
-            />
-          )}
-          {toggleIcon && clearX && (
-            <button
-              onClick={handleToggle}
-              style={{ display: 'inline-flex' }}
-              type='button'
-              className={styles.toggleButton}
-            >
-              {toggleIcon}
-            </button>
-          )}
-          {useDefaultToggleIcon && (
-            <button
-              onClick={handleToggle}
-              className={styles.iconBtn}
-              type='button'
-            >
-              X
-            </button>
-          )}
-        </span>
-        {customSubmitButton && customSubmitButton}
-        {displayDefaultSubmitButton && (
-          <SubmitButton
-            isDisabled={defaultSubmitButtonIsDisabled}
-            userDefinedStyles={submitButtonStyles}
-            onClick={handleOnSubmit}
+    <div className={styles.inputContainer}>
+      <span
+        className={styles.inputFieldWrapper}
+        style={toggleIcon && { display: 'flex' }}
+      >
+        {CustomInput ? (
+          <CustomInput {...customInputProps} {...RGAAInputProps} />
+        ) : (
+          <Input
+            {...RGAAInputProps}
+            placeholder={inputPlaceholder}
+            autoFocus={inputAutoFocus}
+            error={inputAddressError}
+            userDefinedStyles={inputStyles}
           />
         )}
-        {isDropdownOpen ? (
-          <AddressDropdown
-            predictions={predictions}
-            boundsReference={boundsReference}
-            onSelect={handleAddressSelected}
-            onClickOutside={() => setIsDropdownOpen(false)}
-            pinIcon={pinIcon}
-            setIsDropdownOpen={setIsDropdownOpen}
-            userDefinedStyles={addressDropdownStyles}
-          />
-        ) : null}
-      </div>
+        {toggleIcon && clearX && (
+          <button
+            onClick={handleToggle}
+            style={{ display: 'inline-flex' }}
+            type='button'
+            className={styles.toggleButton}
+          >
+            {toggleIcon}
+          </button>
+        )}
+        {useDefaultToggleIcon && (
+          <button
+            onClick={handleToggle}
+            className={styles.iconBtn}
+            type='button'
+          >
+            X
+          </button>
+        )}
+      </span>
+      {customSubmitButton && customSubmitButton}
+      {displayDefaultSubmitButton && (
+        <SubmitButton
+          isDisabled={defaultSubmitButtonIsDisabled}
+          userDefinedStyles={submitButtonStyles}
+          onClick={handleOnSubmit}
+        />
+      )}
+      {isDropdownOpen ? (
+        <AddressDropdown
+          predictions={predictions}
+          boundsReference={boundsReference}
+          onSelect={handleAddressSelected}
+          onClickOutside={() => setIsDropdownOpen(false)}
+          pinIcon={pinIcon}
+          setIsDropdownOpen={setIsDropdownOpen}
+          userDefinedStyles={addressDropdownStyles}
+        />
+      ) : null}
     </div>
   )
 }

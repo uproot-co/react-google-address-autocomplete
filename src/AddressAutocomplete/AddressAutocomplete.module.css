@@ -1,7 +1,3 @@
-.hi {
-    color: hotpink;
-}
-
 .inputFieldWrapper {
     display: flex;
     width: 100%;
@@ -53,9 +49,10 @@
     }
 
 
-    .RGAAInput {
-        background-color: orange;
-    }
+.RGAAInput {
+    background-color: orange;
+}
+
 .iconBtn {
     position: relative;
     display: inline-flex;
