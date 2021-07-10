@@ -74,7 +74,6 @@ const ReactGoogleAddressAutocomplete = ({
   }
 
   const handleToggle = () => {
-    console.log('handleToggle called from RGAA')
     setSelectedAddress('')
     setInputValue('')
     userOnToggle && userOnToggle()
@@ -89,8 +88,6 @@ const ReactGoogleAddressAutocomplete = ({
   const RGAAInputProps = {
     [onChangeName]: handleOnChange,
     value: inputAddressError || selectedAddress || inputValue,
-    onFocus: () => setClearX(inputValue.length >= 1),
-    onBlur: () => setClearX(false)
   }
 
   return (
@@ -120,13 +117,13 @@ const ReactGoogleAddressAutocomplete = ({
             {toggleIcon}
           </button>
         )}
-        {useDefaultToggleIcon && (
+        {useDefaultToggleIcon && clearX && (
           <button
             onClick={handleToggle}
             className={styles.iconBtn}
             type='button'
           >
-            X
+            {'\u24E7'}
           </button>
         )}
       </span>
