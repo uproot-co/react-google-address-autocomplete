@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
+import styles from './AddressDropdown.module.css'
 
 const AddressDropdown = ({
   predictions = [],
@@ -10,9 +11,9 @@ const AddressDropdown = ({
   pinIcon,
   setAddressHasBeenSelected,
   setIsDropdownOpen,
-  userDefinedStyles
+  userDefinedStyles = {}
 }) => {
-  const domRect = boundsReference.current?.getBoundingClientRect()
+  const domRect = boundsReference?.current?.getBoundingClientRect()
   const dropdownDivRef = useRef(null)
 
   useOnClickOutside(onClickOutside, [dropdownDivRef])
@@ -37,10 +38,6 @@ const AddressDropdown = ({
       window.innerHeight - yPosition <= threshold ? showAtTop : showAtBottom
     addresses = Math.sign(offset) === -1 ? _reverse([...addresses]) : addresses
   }
-  const defaultStyles = {
-    backgroundColor: 'white',
-    position: 'absolute'
-  }
 
   return (
     <div
@@ -50,9 +47,11 @@ const AddressDropdown = ({
         left: `${xPosition}px`,
         maxWidth: `${refWidth}px`
       }}
-      ref={dropdownDivRef}
     >
-      <div style={{ ...defaultStyles, ...userDefinedStyles }}>
+      <div
+        className={styles.addressDropdownContainer}
+        style={{ ...userDefinedStyles }}
+      >
         {addresses.map((item, index) => {
           return (
             <div
@@ -70,6 +69,7 @@ const AddressDropdown = ({
                 onClick={() => {
                   onSelect(item)
                 }}
+                className={styles.addressDropdown}
               >
                 {item.matchedAddress}
               </span>

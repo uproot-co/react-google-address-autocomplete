@@ -27,4 +27,4 @@ class Example extends Component {
 
 ## License
 
-MIT © [SAnschutz](https://github.com/SAnschutz)
+MIT © [Uproot](https://github.com/uproot-co)

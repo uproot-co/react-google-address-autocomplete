@@ -1,0 +1,50 @@
+.addressAutocompleteWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.inputFieldWrapper {
+  display: flex;
+  width: 80%;
+  border-bottom: 1px solid black;
+  margin-right: 2px;
+}
+
+.input {
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.5rem;
+}
+
+.inputWithToggle {
+  width: 95%;
+  padding-left: 0.5rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.toggleButton {
+  padding: 0.6rem 0.32rem;
+  background-color: #fff;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-left: 1px solid #f4f4f4;
+}
+
+.toggleIcon {
+  border-radius: 50%;
+  position: relative;
+  height: 100%;
+  color: rgb(79, 75, 74);
+  text-align: center;
+  /* right: 1rem;
+  top: 0.8rem; */
+  z-index: 1000;
+  cursor: pointer;
+}

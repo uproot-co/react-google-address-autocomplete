@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './Input.module.css'
 
 const Input = ({
   placeholder,
@@ -21,6 +22,7 @@ const Input = ({
       error={error}
       onChange={onChange}
       autoComplete='off'
+      className={styles.input}
     />
   )
 }

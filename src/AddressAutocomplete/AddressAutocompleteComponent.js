@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Input from './Input'
 import AddressDropdown from './AddressDropdown'
 import SubmitButton from './SubmitButton'
-import styles from './AddressAutocomplete.module.css'
+import styles from './AddressAutocompleteComponent.module.css'
 
 const ReactGoogleAddressAutocomplete = ({
   boundsReference,
@@ -23,7 +23,6 @@ const ReactGoogleAddressAutocomplete = ({
   onClickSubmitButton,
   pinIcon,
   inputStyles,
-  addressDropdownStyles,
   submitButtonStyles,
   error
 }) => {
@@ -87,65 +86,74 @@ const ReactGoogleAddressAutocomplete = ({
 
   const RGAAInputProps = {
     [onChangeName]: handleOnChange,
-    value: inputAddressError || selectedAddress || inputValue,
+    value: inputAddressError || selectedAddress || inputValue
   }
 
+  const dropDownDivRef = useRef()
+
   return (
-    <div className={styles.inputContainer}>
-      <span
-        className={styles.inputFieldWrapper}
-        style={toggleIcon && { display: 'flex' }}
-      >
-        {CustomInput ? (
-          <CustomInput {...customInputProps} {...RGAAInputProps} />
-        ) : (
-          <Input
-            {...RGAAInputProps}
-            placeholder={inputPlaceholder}
-            autoFocus={inputAutoFocus}
-            error={inputAddressError}
-            userDefinedStyles={inputStyles}
+    <div>
+      <div className={styles.addressAutocompleteWrapper}>
+        <div className={styles.inputFieldWrapper}>
+          <div
+            className={
+              (toggleIcon || useDefaultToggleIcon) && clearX
+                ? styles.inputWithToggle
+                : styles.input
+            }
+          >
+            {CustomInput ? (
+              <CustomInput {...customInputProps} {...RGAAInputProps} />
+            ) : (
+              <Input
+                {...RGAAInputProps}
+                placeholder={inputPlaceholder}
+                autoFocus={inputAutoFocus}
+                error={inputAddressError}
+                userDefinedStyles={inputStyles}
+              />
+            )}
+          </div>
+          {toggleIcon && clearX && (
+            <button
+              onClick={handleToggle}
+              type='button'
+              className={styles.toggleButton}
+            >
+              <div className={styles.toggleIcon}>{toggleIcon}</div>
+            </button>
+          )}
+          {useDefaultToggleIcon && clearX && (
+            <button
+              onClick={handleToggle}
+              className={styles.toggleButton}
+              type='button'
+            >
+              <div className={styles.toggleIcon}>{'\u24E7'}</div>
+            </button>
+          )}
+        </div>
+        {customSubmitButton && customSubmitButton}
+        {displayDefaultSubmitButton && (
+          <SubmitButton
+            isDisabled={defaultSubmitButtonIsDisabled}
+            userDefinedStyles={submitButtonStyles}
+            onClick={handleOnSubmit}
           />
         )}
-        {toggleIcon && clearX && (
-          <button
-            onClick={handleToggle}
-            style={{ display: 'inline-flex' }}
-            type='button'
-            className={styles.toggleButton}
-          >
-            {toggleIcon}
-          </button>
-        )}
-        {useDefaultToggleIcon && clearX && (
-          <button
-            onClick={handleToggle}
-            className={styles.iconBtn}
-            type='button'
-          >
-            {'\u24E7'}
-          </button>
-        )}
-      </span>
-      {customSubmitButton && customSubmitButton}
-      {displayDefaultSubmitButton && (
-        <SubmitButton
-          isDisabled={defaultSubmitButtonIsDisabled}
-          userDefinedStyles={submitButtonStyles}
-          onClick={handleOnSubmit}
-        />
-      )}
-      {isDropdownOpen ? (
-        <AddressDropdown
-          predictions={predictions}
-          boundsReference={boundsReference}
-          onSelect={handleAddressSelected}
-          onClickOutside={() => setIsDropdownOpen(false)}
-          pinIcon={pinIcon}
-          setIsDropdownOpen={setIsDropdownOpen}
-          userDefinedStyles={addressDropdownStyles}
-        />
-      ) : null}
+      </div>
+      <div ref={dropDownDivRef}>
+        {isDropdownOpen ? (
+          <AddressDropdown
+            predictions={predictions}
+            boundsReference={boundsReference}
+            onSelect={handleAddressSelected}
+            onClickOutside={() => setIsDropdownOpen(false)}
+            pinIcon={pinIcon}
+            setIsDropdownOpen={setIsDropdownOpen}
+          />
+        ) : null}
+      </div>
     </div>
   )
 }

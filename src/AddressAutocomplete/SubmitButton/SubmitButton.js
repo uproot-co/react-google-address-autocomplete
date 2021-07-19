@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './SubmitButton.module.css'
 
 const SubmitButton = ({
   isDisabled,
@@ -6,13 +7,13 @@ const SubmitButton = ({
   submitButtonText,
   onClick
 }) => {
-  const styles = {
-    opacity: `${isDisabled ? '.5' : '1'}`,
-    ...userDefinedStyles
-  }
-
   return (
-    <button onClick={onClick} disabled={isDisabled} style={styles}>
+    <button
+      onClick={onClick}
+      disabled={isDisabled}
+      style={{ ...userDefinedStyles }}
+      className={isDisabled ? styles.submitButtonDisabled : styles.submitButton}
+    >
       {submitButtonText || 'Search'}
     </button>
   )
