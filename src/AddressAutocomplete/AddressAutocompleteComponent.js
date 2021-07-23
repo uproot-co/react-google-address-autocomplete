@@ -89,8 +89,6 @@ const ReactGoogleAddressAutocomplete = ({
     value: inputAddressError || selectedAddress || inputValue
   }
 
-  const dropDownDivRef = useRef()
-
   return (
     <div>
       <div className={styles.addressAutocompleteWrapper}>
@@ -142,18 +140,16 @@ const ReactGoogleAddressAutocomplete = ({
           />
         )}
       </div>
-      <div ref={dropDownDivRef}>
-        {isDropdownOpen ? (
-          <AddressDropdown
-            predictions={predictions}
-            boundsReference={boundsReference}
-            onSelect={handleAddressSelected}
-            onClickOutside={() => setIsDropdownOpen(false)}
-            pinIcon={pinIcon}
-            setIsDropdownOpen={setIsDropdownOpen}
-          />
-        ) : null}
-      </div>
+      {isDropdownOpen ? (
+        <AddressDropdown
+          predictions={predictions}
+          boundsReference={boundsReference}
+          onSelect={handleAddressSelected}
+          onClickOutside={() => setIsDropdownOpen(false)}
+          pinIcon={pinIcon}
+          setIsDropdownOpen={setIsDropdownOpen}
+        />
+      ) : null}
     </div>
   )
 }

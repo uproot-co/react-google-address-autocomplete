@@ -47,6 +47,7 @@ const AddressDropdown = ({
         left: `${xPosition}px`,
         maxWidth: `${refWidth}px`
       }}
+      ref={dropdownDivRef}
     >
       <div
         className={styles.addressDropdownContainer}
