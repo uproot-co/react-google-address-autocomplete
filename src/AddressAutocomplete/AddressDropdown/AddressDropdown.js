@@ -1,14 +1,36 @@
 import React, { useRef } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
-import styles from './AddressDropdown.module.css'
+// import styles from './AddressDropdown.module.css'
+import styled from 'styled-components'
+
+const AddressDropdownContainer = styled.div`
+  position: absolute;
+  padding-left: 10px;
+  width: 100%;
+`
+
+const AddressDropdownDiv = styled.div`
+  width: 80%;
+`
+
+const Address = styled.div`
+  color: black;
+  width: 80%;
+  padding: 0 10px;
+  display: inline;
+`
+const Icon = styled.div`
+  margin-right: 5px;
+  display: inline;
+`
 
 const AddressDropdown = ({
   predictions = [],
   boundsReference,
   onSelect,
   onClickOutside,
-  pinIcon,
+  pinIcon = 'x',
   setAddressHasBeenSelected,
   setIsDropdownOpen,
   userDefinedStyles = {}
@@ -49,36 +71,31 @@ const AddressDropdown = ({
       }}
       ref={dropdownDivRef}
     >
-      <div
-        className={styles.addressDropdownContainer}
+      <AddressDropdownContainer
+        className='styles.addressDropdownContainer'
         style={{ ...userDefinedStyles }}
       >
         {addresses.map((item, index) => {
           return (
-            <div
+            <AddressDropdownDiv
               key={index}
               style={{
                 cursor: 'pointer'
               }}
             >
-              {pinIcon && (
-                <div style={{ marginRight: '5px', display: 'inline' }}>
-                  {pinIcon}
-                </div>
-              )}
-              <span
+              {pinIcon && <Icon>{pinIcon}</Icon>}
+              <Address
                 onClick={() => {
                   onSelect(item)
                 }}
-                className={styles.addressDropdown}
               >
                 {item.matchedAddress}
-              </span>
+              </Address>
               <hr />
-            </div>
+            </AddressDropdownDiv>
           )
         })}
-      </div>
+      </AddressDropdownContainer>
     </div>
   )
 }

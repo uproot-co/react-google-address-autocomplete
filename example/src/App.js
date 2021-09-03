@@ -2,7 +2,8 @@ import React from 'react'
 
 import ReactGoogleAddressAutocomplete from 'react-google-address-autocomplete'
 import 'react-google-address-autocomplete/dist/index.css'
-import styles from './App.module.css'
+// import styles from './App.module.css'
+import styled from 'styled-components'
 
 const fetchPredictions = () => {
   return [
@@ -16,16 +17,23 @@ const onClickSubmitButton = () => {
   console.log('Submit button clicked')
 }
 
+const AddressAutocompleteComponent = styled.div`
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 30vh;
+`
+
 const App = () => {
   return (
-    <div className={styles.addressAutocomplete}>
+    <AddressAutocompleteComponent className='styles.addressAutocomplete'>
       <ReactGoogleAddressAutocomplete
         fetchPredictions={fetchPredictions}
         onClickSubmitButton={onClickSubmitButton}
         displayDefaultSubmitButton={true}
         useDefaultToggleIcon={true}
       />
-    </div>
+    </AddressAutocompleteComponent>
   )
 }
 

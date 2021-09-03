@@ -1,21 +1,28 @@
 import React from 'react'
-import styles from './SubmitButton.module.css'
+import styled from 'styled-components'
+
+// opacity: background: ${isDisabled ? 0.8 : 1};
+
+const Button = styled.button`
+  width: 20%;
+  max-width: 100px;
+  opacity: ${(props) => (props.isDisabled ? 0.8 : 1)};
+`
 
 const SubmitButton = ({
-  isDisabled,
+  isDisabled = false,
   userDefinedStyles = {},
   submitButtonText,
   onClick
 }) => {
   return (
-    <button
+    <Button
       onClick={onClick}
       disabled={isDisabled}
       style={{ ...userDefinedStyles }}
-      className={isDisabled ? styles.submitButtonDisabled : styles.submitButton}
     >
       {submitButtonText || 'Search'}
-    </button>
+    </Button>
   )
 }
 

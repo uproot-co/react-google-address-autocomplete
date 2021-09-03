@@ -1,9 +1,0 @@
-.submitButton {
-  opacity: 1;
-  width: 20%;
-  max-width: 100px;
-}
-
-.submitButtonDisabled {
-  opacity: 0.8;
-}

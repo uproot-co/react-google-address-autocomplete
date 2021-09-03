@@ -2,7 +2,59 @@ import React, { useState, useEffect, useRef } from 'react'
 import Input from './Input'
 import AddressDropdown from './AddressDropdown'
 import SubmitButton from './SubmitButton'
-import styles from './AddressAutocompleteComponent.module.css'
+// import styles from './AddressAutocompleteComponent.module.css'
+import styled from 'styled-components'
+
+const AddressAutocompleteWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+`
+
+const InputFieldWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  // border-bottom: 1px solid black;
+  margin-right: 2px;
+`
+// original .inputFieldWrapper {
+//     display: flex;
+//     width: 100%;
+//     border-radius: 0.25rem;
+//     overflow: hidden;
+// }
+
+const InputDiv = styled.div`
+  width: ${(props) =>
+    (props.toggleIcon || props.useDefaultToggleIcon) && clearX
+      ? '87.6%'
+      : '100%'};
+  padding-right: 1.5rem;
+  padding-top: 0.65rem;
+  overflow: hidden;
+`
+
+const ToggleButton = styled.button`
+  padding: 0.6rem 0.32rem;
+  font-size: 1.3rem;
+  outline: none;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background: none;
+`
+
+const ToggleIconDiv = styled.div`
+  border-radius: 50%;
+  position: relative;
+  height: 100%;
+  // color: rgb(79, 75, 74);
+  text-align: center;
+  /* right: 1rem;
+  top: 0.8rem; */
+  z-index: 1000;
+  cursor: pointer;
+`
 
 const ReactGoogleAddressAutocomplete = ({
   boundsReference,
@@ -91,15 +143,9 @@ const ReactGoogleAddressAutocomplete = ({
 
   return (
     <div>
-      <div className={styles.addressAutocompleteWrapper}>
-        <div className={styles.inputFieldWrapper}>
-          <div
-            className={
-              (toggleIcon || useDefaultToggleIcon) && clearX
-                ? styles.inputWithToggle
-                : styles.input
-            }
-          >
+      <AddressAutocompleteWrapper>
+        <InputFieldWrapper>
+          <InputDiv>
             {CustomInput ? (
               <CustomInput {...customInputProps} {...RGAAInputProps} />
             ) : (
@@ -111,26 +157,18 @@ const ReactGoogleAddressAutocomplete = ({
                 userDefinedStyles={inputStyles}
               />
             )}
-          </div>
+          </InputDiv>
           {toggleIcon && clearX && (
-            <button
-              onClick={handleToggle}
-              type='button'
-              className={styles.toggleButton}
-            >
-              <div className={styles.toggleIcon}>{toggleIcon}</div>
-            </button>
+            <ToggleButton onClick={handleToggle} type='button'>
+              <ToggleIconDiv>{toggleIcon}</ToggleIconDiv>
+            </ToggleButton>
           )}
           {useDefaultToggleIcon && clearX && (
-            <button
-              onClick={handleToggle}
-              className={styles.toggleButton}
-              type='button'
-            >
-              <div className={styles.toggleIcon}>{'\u24E7'}</div>
-            </button>
+            <ToggleButton onClick={handleToggle} type='button'>
+              <ToggleIconDiv>{'\u24E7'}</ToggleIconDiv>
+            </ToggleButton>
           )}
-        </div>
+        </InputFieldWrapper>
         {customSubmitButton && customSubmitButton}
         {displayDefaultSubmitButton && (
           <SubmitButton
@@ -139,7 +177,8 @@ const ReactGoogleAddressAutocomplete = ({
             onClick={handleOnSubmit}
           />
         )}
-      </div>
+      </AddressAutocompleteWrapper>
+
       {isDropdownOpen ? (
         <AddressDropdown
           predictions={predictions}
@@ -155,3 +194,52 @@ const ReactGoogleAddressAutocomplete = ({
 }
 
 export default ReactGoogleAddressAutocomplete
+
+// .addressAutocompleteWrapper {
+//     width: 100%;
+// }
+
+// .inputClear {
+//     margin-right: 1.5rem;
+// }
+
+// .editAddress {
+//     display: inline-flex;
+//     color: var(--ion-color-primary);
+
+//     .address {
+//         font-weight: bold;
+//         text-transform: capitalize;
+//         font-size: 0.875rem;
+//         padding-top: 0.125rem;
+//         margin-right: 0.3125rem;
+//         height: 1.875rem;
+//         line-height: 2em;
+//         white-space: nowrap;
+//         overflow: hidden;
+//         max-width: 85vw;
+//         text-overflow: ellipsis;
+
+//         @mixin address-responsive {
+//             font-size: 0.8125rem;
+//         }
+
+//         @media only screen and (max-width: $mobile-breakpoint) {
+//             @include address-responsive;
+//         }
+
+//         &-mobile {
+//             @include address-responsive;
+//         }
+//     }
+
+//     .editButton {
+//         background: var(--ion-color-tertiary);
+
+//         .ionIcon {
+//             color: #929292;
+//             font-size: 0.9rem;
+//             font-weight: bold;
+//         }
+//     }
+// }
