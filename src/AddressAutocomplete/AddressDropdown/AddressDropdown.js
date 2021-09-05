@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
-// import styles from './AddressDropdown.module.css'
 import styled from 'styled-components'
 
 const AddressDropdownContainer = styled.div`

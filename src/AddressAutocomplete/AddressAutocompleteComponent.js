@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import Input from './Input'
 import AddressDropdown from './AddressDropdown'
 import SubmitButton from './SubmitButton'
-// import styles from './AddressAutocompleteComponent.module.css'
 import styled from 'styled-components'
 
 const AddressAutocompleteWrapper = styled.div`
@@ -17,12 +16,6 @@ const InputFieldWrapper = styled.div`
   // border-bottom: 1px solid black;
   margin-right: 2px;
 `
-// original .inputFieldWrapper {
-//     display: flex;
-//     width: 100%;
-//     border-radius: 0.25rem;
-//     overflow: hidden;
-// }
 
 const InputDiv = styled.div`
   width: ${(props) =>
@@ -71,6 +64,7 @@ const ReactGoogleAddressAutocomplete = ({
   customSubmitButton,
   displayDefaultSubmitButton,
   defaultSubmitButtonIsDisabled,
+  selectedAddress: selectedAddressFromUser = '',
   onAddressSelected,
   onClickSubmitButton,
   pinIcon,
@@ -88,6 +82,13 @@ const ReactGoogleAddressAutocomplete = ({
   useEffect(() => {
     predictions.length > 1 ? setIsDropdownOpen(true) : setIsDropdownOpen(false)
   }, [predictions])
+
+  useEffect(() => {
+    if (selectedAddressFromUser) {
+      setInputValue(selectedAddressFromUser)
+      setSelectedAddress(selectedAddressFromUser)
+    }
+  }, [selectedAddressFromUser])
 
   useEffect(() => {
     setClearX(inputValue.length >= 1)
@@ -194,52 +195,3 @@ const ReactGoogleAddressAutocomplete = ({
 }
 
 export default ReactGoogleAddressAutocomplete
-
-// .addressAutocompleteWrapper {
-//     width: 100%;
-// }
-
-// .inputClear {
-//     margin-right: 1.5rem;
-// }
-
-// .editAddress {
-//     display: inline-flex;
-//     color: var(--ion-color-primary);
-
-//     .address {
-//         font-weight: bold;
-//         text-transform: capitalize;
-//         font-size: 0.875rem;
-//         padding-top: 0.125rem;
-//         margin-right: 0.3125rem;
-//         height: 1.875rem;
-//         line-height: 2em;
-//         white-space: nowrap;
-//         overflow: hidden;
-//         max-width: 85vw;
-//         text-overflow: ellipsis;
-
-//         @mixin address-responsive {
-//             font-size: 0.8125rem;
-//         }
-
-//         @media only screen and (max-width: $mobile-breakpoint) {
-//             @include address-responsive;
-//         }
-
-//         &-mobile {
-//             @include address-responsive;
-//         }
-//     }
-
-//     .editButton {
-//         background: var(--ion-color-tertiary);
-
-//         .ionIcon {
-//             color: #929292;
-//             font-size: 0.9rem;
-//             font-weight: bold;
-//         }
-//     }
-// }

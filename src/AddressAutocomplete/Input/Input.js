@@ -16,7 +16,7 @@ const defaultStyles = {
 }
 
 const Input = ({
-  placeholder,
+  placeholder = 'Please enter an address',
   value = '',
   autoFocus = true,
   isDisabled,
@@ -31,7 +31,7 @@ const Input = ({
       value={value}
       autoFocus={autoFocus || true}
       disabled={isDisabled}
-      placeholder='Search officials by address (street, city, state)'
+      placeholder={placeholder}
       name='search_address'
       error={error}
       onChange={onChange}
