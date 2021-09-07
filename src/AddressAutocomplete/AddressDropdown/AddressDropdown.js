@@ -2,26 +2,43 @@ import React, { useRef } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
 import styled from 'styled-components'
+import ReactDOM from 'react-dom'
 
 const AddressDropdownContainer = styled.div`
   position: absolute;
   padding-left: 10px;
   width: 100%;
+  background-color: #fefefe;
+  border: 1px solid #e6e6e6;
+  border-radius: 0 0 3px 3px;
+  min-width: 250px;
 `
 
 const AddressDropdownDiv = styled.div`
-  width: 80%;
+  border-bottom: 1px solid #e6e6e6;
+  color: #383a3e;
+  padding: 8px 5px;
+  font-size: 0.88rem;
+  display: inline-flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    background-color: #84aea9;
+    color: #fff;
+  }
 `
-
 const Address = styled.div`
-  color: black;
-  width: 80%;
-  padding: 0 10px;
-  display: inline;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 30px);
 `
 const Icon = styled.div`
   margin-right: 5px;
-  display: inline;
+  font-size: 1.4rem;
 `
 
 const AddressDropdown = ({
@@ -39,42 +56,66 @@ const AddressDropdown = ({
 
   useOnClickOutside(onClickOutside, [dropdownDivRef])
 
-  const [showAtBottom, showAtTop, threshold] = [60, -174, 250] // Offset of the direction at which to show dropdown
   let [xPosition, yPosition] = [0, 0] // X & Y coordinates in which to position the dropdown
 
-  let offset = 0,
-    refWidth = 0,
-    addresses = predictions
+  let refWidth = 0
+  let refHeight = 0
+  let showAtBottom = true
 
   if (domRect) {
-    const { x, y, width } = domRect
+    const { x, y, width, height } = domRect
+    const dropdownInitialHeight = 200
 
     xPosition = x
     yPosition = y
     refWidth = width
+    refHeight = height
 
     // Check how close the component bounds are from the bottom of the page,
     // to determine the direction in which the dropdown should render, and order of matched addresses
-    offset =
-      window.innerHeight - yPosition <= threshold ? showAtTop : showAtBottom
-    addresses = Math.sign(offset) === -1 ? _reverse([...addresses]) : addresses
+    showAtBottom =
+      window.innerHeight - (yPosition + height) >= dropdownInitialHeight
+    predictions = !showAtBottom ? _reverse([...predictions]) : predictions
   }
 
-  return (
+  // useOnClickOutside(onClickOutside, [dropdownDivRef])
+
+  // const [showAtBottom, showAtTop, threshold] = [60, -174, 250] // Offset of the direction at which to show dropdown
+  // let [xPosition, yPosition] = [0, 0] // X & Y coordinates in which to position the dropdown
+
+  // let offset = 0,
+  //   refWidth = 0,
+  //   addresses = predictions
+
+  // if (domRect) {
+  //   const { x, y, width } = domRect
+
+  //   xPosition = x
+  //   yPosition = y
+  //   refWidth = width
+
+  //   // Check how close the component bounds are from the bottom of the page,
+  //   // to determine the direction in which the dropdown should render, and order of matched addresses
+  //   offset =
+  //     window.innerHeight - yPosition <= threshold ? showAtTop : showAtBottom
+  //   addresses = Math.sign(offset) === -1 ? _reverse([...addresses]) : addresses
+  // }
+
+  return ReactDOM.createPortal(
     <div
-      // Adding styles inline here only because values are received as props
-      style={{
-        top: `${yPosition + offset}px`,
-        left: `${xPosition}px`,
-        maxWidth: `${refWidth}px`
-      }}
-      ref={dropdownDivRef}
+    // Adding styles inline here only because values are received as props
     >
       <AddressDropdownContainer
-        className='styles.addressDropdownContainer'
-        style={{ ...userDefinedStyles }}
+        style={{
+          ...(showAtBottom
+            ? { top: `${yPosition + refHeight}px` }
+            : { bottom: `${window.innerHeight - yPosition}px` }),
+          left: `${xPosition}px`,
+          maxWidth: `${refWidth}px`
+        }}
+        ref={dropdownDivRef}
       >
-        {addresses.map((item, index) => {
+        {predictions.map((item, index) => {
           return (
             <AddressDropdownDiv
               key={index}
@@ -83,11 +124,7 @@ const AddressDropdown = ({
               }}
             >
               {pinIcon && <Icon>{pinIcon}</Icon>}
-              <Address
-                onClick={() => {
-                  onSelect(item)
-                }}
-              >
+              <Address onClick={() => onSelect(item)}>
                 {item.matchedAddress}
               </Address>
               <hr />
@@ -95,7 +132,8 @@ const AddressDropdown = ({
           )
         })}
       </AddressDropdownContainer>
-    </div>
+    </div>,
+    document.getElementById('root')
   )
 }
 
