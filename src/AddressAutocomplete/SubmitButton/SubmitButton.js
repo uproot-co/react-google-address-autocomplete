@@ -1,12 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-// opacity: background: ${isDisabled ? 0.8 : 1};
-
 const Button = styled.button`
-  width: 20%;
-  max-width: 100px;
+  font-size: 1.3rem;
+  padding: 0.5rem 3rem;
+  height: auto;
   opacity: ${(props) => (props.isDisabled ? 0.8 : 1)};
+  // text-transform: none;
+  // letter-spacing: 0;
+  // max-width: 18.75rem;
 `
 
 const SubmitButton = ({

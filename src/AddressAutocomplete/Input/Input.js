@@ -6,14 +6,23 @@ const StyledInput = styled.input`
   outline: none;
   border: none;
   overflow: hidden;
+  position: absolute;
+  bottom: 0;
 `
 
 const defaultStyles = {
   borderBottom: '1px solid black',
-  paddingStart: '0.5rem',
-  paddingTop: '0.65rem',
-  paddingBottom: '0.5rem'
+  paddingBottom: '5px',
+  fontSize: '1.3rem'
 }
+
+// {
+//   useDefaultToggleIcon && clearX && (
+//     <ToggleButton onClick={handleToggle} type='button'>
+//       <ToggleIconDiv>{'\u24E7'}</ToggleIconDiv>
+//     </ToggleButton>
+//   )
+// }
 
 const Input = ({
   placeholder = 'Please enter an address',

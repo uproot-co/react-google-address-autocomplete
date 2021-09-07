@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Input from './Input'
+import DefaultInput from './Input'
 import AddressDropdown from './AddressDropdown'
-import SubmitButton from './SubmitButton'
+import Toggle from './Toggle'
+import DefaultSubmitButton from './SubmitButton'
 import styled from 'styled-components'
 
 const AddressAutocompleteWrapper = styled.div`
@@ -13,40 +14,13 @@ const AddressAutocompleteWrapper = styled.div`
 const InputFieldWrapper = styled.div`
   display: flex;
   width: 100%;
-  // border-bottom: 1px solid black;
-  margin-right: 2px;
+  margin-right: 5px;
 `
 
 const InputDiv = styled.div`
-  width: ${(props) =>
-    (props.toggleIcon || props.useDefaultToggleIcon) && clearX
-      ? '87.6%'
-      : '100%'};
-  padding-right: 1.5rem;
-  padding-top: 0.65rem;
+  width: 100%;
   overflow: hidden;
-`
-
-const ToggleButton = styled.button`
-  padding: 0.6rem 0.32rem;
-  font-size: 1.3rem;
-  outline: none;
-  border: none;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  background: none;
-`
-
-const ToggleIconDiv = styled.div`
-  border-radius: 50%;
   position: relative;
-  height: 100%;
-  // color: rgb(79, 75, 74);
-  text-align: center;
-  /* right: 1rem;
-  top: 0.8rem; */
-  z-index: 1000;
-  cursor: pointer;
 `
 
 const ReactGoogleAddressAutocomplete = ({
@@ -150,7 +124,7 @@ const ReactGoogleAddressAutocomplete = ({
             {CustomInput ? (
               <CustomInput {...customInputProps} {...RGAAInputProps} />
             ) : (
-              <Input
+              <DefaultInput
                 {...RGAAInputProps}
                 placeholder={inputPlaceholder}
                 autoFocus={inputAutoFocus}
@@ -160,19 +134,15 @@ const ReactGoogleAddressAutocomplete = ({
             )}
           </InputDiv>
           {toggleIcon && clearX && (
-            <ToggleButton onClick={handleToggle} type='button'>
-              <ToggleIconDiv>{toggleIcon}</ToggleIconDiv>
-            </ToggleButton>
+            <Toggle handleToggle={handleToggle} toggleIcon={toggleIcon} />
           )}
           {useDefaultToggleIcon && clearX && (
-            <ToggleButton onClick={handleToggle} type='button'>
-              <ToggleIconDiv>{'\u24E7'}</ToggleIconDiv>
-            </ToggleButton>
+            <Toggle handleToggle={handleToggle} toggleIcon={'\u24E7'} />
           )}
         </InputFieldWrapper>
         {customSubmitButton && customSubmitButton}
         {displayDefaultSubmitButton && (
-          <SubmitButton
+          <DefaultSubmitButton
             isDisabled={defaultSubmitButtonIsDisabled}
             userDefinedStyles={submitButtonStyles}
             onClick={handleOnSubmit}
