@@ -12,12 +12,13 @@ const AddressAutocompleteWrapper = styled.div`
 `
 
 const InputWrapper = styled.div`
-  width: 90%;
+  width: ${(props) =>
+    props.toggleIcon || props.useDefaultToggleIcon ? '90%' : '100%'};
 `
 
 const ReactGoogleAddressAutocomplete = ({
   boundsReference,
-  fetchPredictions, // required function that accepts the inputValue stored in this component and returns an array of objects, each with a "matchedAddress" property
+  fetchPredictions, // required function that accepts an inputValue (string) and returns an array of objects, each with a "matchedAddress" property
   CustomInput,
   customInputProps,
   onChangeName = 'onChange', // optional -- only necessary if custom input's onChange function is called something other than onChange
@@ -28,7 +29,7 @@ const ReactGoogleAddressAutocomplete = ({
   userOnToggle,
   useDefaultToggleIcon = false,
   customSubmitButton,
-  displayDefaultSubmitButton,
+  displayDefaultSubmitButton = false,
   defaultSubmitButtonIsDisabled,
   selectedAddress: selectedAddressFromUser = '',
   onAddressSelected,
@@ -111,7 +112,10 @@ const ReactGoogleAddressAutocomplete = ({
   return (
     <div>
       <AddressAutocompleteWrapper>
-        <InputWrapper>
+        <InputWrapper
+          toggleIcon={toggleIcon}
+          useDefaultToggleIcon={useDefaultToggleIcon}
+        >
           {CustomInput ? (
             <CustomInput {...customInputProps} {...RGAAInputProps} />
           ) : (

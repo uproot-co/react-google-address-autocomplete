@@ -28,7 +28,7 @@ const userAddress = 'Somewhere over the Rainbow'
 
 const App = () => {
   return (
-    <AddressAutocompleteComponent className='styles.addressAutocomplete'>
+    <AddressAutocompleteComponent>
       <ReactGoogleAddressAutocomplete
         fetchPredictions={fetchPredictions}
         onClickSubmitButton={onClickSubmitButton}
