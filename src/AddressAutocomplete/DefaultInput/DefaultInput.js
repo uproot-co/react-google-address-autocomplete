@@ -2,46 +2,36 @@ import React from 'react'
 import styled from 'styled-components'
 
 const InputFieldWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  border-radius: 0.25rem;
+  height: 100%;
   overflow: hidden;
-
-  &.outline {
-    border: 0.0625rem solid #808289;
-  }
+  border: none;
+  padding: 0;
+  bottom: 0;
 `
 
 const InputDiv = styled.div`
   width: 100%;
-  overflow: hidden;
+  height: 100%;
   position: relative;
 `
 
 const StyledInput = styled.input`
-  width: 100%;
-  outline: none;
   border: none;
-  overflow: hidden;
+  outline: none;
+  width: 100%;
+  padding-start: 0.5rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.5rem;
   position: absolute;
   bottom: 0;
-  filter: none;
-
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus {
-    box-shadow: 0 0 0 1000px rgb(255, 255, 255) inset;
-    -webkit-box-shadow: 0 0 0 1000px rgb(255, 255, 255) inset;
-  }
 `
 
 const defaultStyles = {
-  borderBottom: '1px solid black',
   paddingBottom: '5px',
-  fontSize: '1.3rem'
+  fontSize: '1rem'
 }
 
-const Input = ({
+const DefaultInput = ({
   placeholder = 'Please enter an address',
   value = '',
   autoFocus = true,
@@ -70,4 +60,4 @@ const Input = ({
   )
 }
 
-export default Input
+export default DefaultInput

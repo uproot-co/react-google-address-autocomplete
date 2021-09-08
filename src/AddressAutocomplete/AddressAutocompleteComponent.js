@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import DefaultInput from './Input'
+import DefaultInput from './DefaultInput'
 import AddressDropdown from './AddressDropdown'
 import Toggle from './Toggle'
 import DefaultSubmitButton from './SubmitButton'
 import styled from 'styled-components'
 
 const AddressAutocompleteWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+`
+
+const InputFieldWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  border-bottom: ${(props) =>
+    props.usingCustomInput ? 'none' : '1px solid black'};
 `
 
 const InputWrapper = styled.div`
@@ -110,8 +118,8 @@ const ReactGoogleAddressAutocomplete = ({
   }
 
   return (
-    <div>
-      <AddressAutocompleteWrapper>
+    <AddressAutocompleteWrapper>
+      <InputFieldWrapper usingCustomInput={CustomInput && true}>
         <InputWrapper
           toggleIcon={toggleIcon}
           useDefaultToggleIcon={useDefaultToggleIcon}
@@ -134,15 +142,16 @@ const ReactGoogleAddressAutocomplete = ({
         {useDefaultToggleIcon && clearX && (
           <Toggle handleToggle={handleToggle} toggleIcon={'\u24E7'} />
         )}
-        {customSubmitButton && customSubmitButton}
-        {displayDefaultSubmitButton && (
-          <DefaultSubmitButton
-            isDisabled={defaultSubmitButtonIsDisabled}
-            userDefinedStyles={submitButtonStyles}
-            onClick={handleOnSubmit}
-          />
-        )}
-      </AddressAutocompleteWrapper>
+      </InputFieldWrapper>
+      {customSubmitButton && customSubmitButton}
+
+      {displayDefaultSubmitButton && (
+        <DefaultSubmitButton
+          isDisabled={defaultSubmitButtonIsDisabled}
+          userDefinedStyles={submitButtonStyles}
+          onClick={handleOnSubmit}
+        />
+      )}
 
       {isDropdownOpen ? (
         <AddressDropdown
@@ -154,7 +163,7 @@ const ReactGoogleAddressAutocomplete = ({
           setIsDropdownOpen={setIsDropdownOpen}
         />
       ) : null}
-    </div>
+    </AddressAutocompleteWrapper>
   )
 }
 

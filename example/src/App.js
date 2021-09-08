@@ -9,7 +9,10 @@ const fetchPredictions = () => {
     { matchedAddress: '123 Main Street, Anytown, CO, USA' },
     { matchedAddress: '456 Back Alley, Anothertown, UT, USA' },
     { matchedAddress: '789 Route 66, Outtahere, OK, USA' },
-    { matchedAddress: 'Somewhere Over the Rainbow' }
+    { matchedAddress: 'Somewhere Over the Rainbow' },
+    { matchedAddress: '157 Riverside Avenue, Champaign, IL' },
+    { matchedAddress: '2120 South Michigan Avenue, London, UK' },
+    { matchedAddress: '57th Street, Longbranch, NJ' }
   ]
 }
 
@@ -24,7 +27,7 @@ const AddressAutocompleteComponent = styled.div`
   margin-top: 30vh;
 `
 
-const userAddress = 'Somewhere over the Rainbow'
+const userAddress = '1 Main St., My Town, USA (address provided by user)'
 
 const App = () => {
   return (
