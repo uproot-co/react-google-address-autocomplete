@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import DefaultInput from './DefaultInput'
 import AddressDropdown from './AddressDropdown'
 import Toggle from './Toggle'
@@ -53,6 +53,8 @@ const ReactGoogleAddressAutocomplete = ({
   const [inputValue, setInputValue] = useState('')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [clearX, setClearX] = useState(false)
+
+  const AddressDropdownRef = useRef(null)
 
   useEffect(() => {
     predictions.length > 1 ? setIsDropdownOpen(true) : setIsDropdownOpen(false)
@@ -119,7 +121,10 @@ const ReactGoogleAddressAutocomplete = ({
 
   return (
     <AddressAutocompleteWrapper>
-      <InputFieldWrapper usingCustomInput={CustomInput && true}>
+      <InputFieldWrapper
+        usingCustomInput={CustomInput && true}
+        ref={AddressDropdownRef}
+      >
         <InputWrapper
           toggleIcon={toggleIcon}
           useDefaultToggleIcon={useDefaultToggleIcon}
@@ -156,7 +161,7 @@ const ReactGoogleAddressAutocomplete = ({
       {isDropdownOpen ? (
         <AddressDropdown
           predictions={predictions}
-          boundsReference={boundsReference}
+          boundsReference={AddressDropdownRef}
           onSelect={handleAddressSelected}
           onClickOutside={() => setIsDropdownOpen(false)}
           pinIcon={pinIcon}

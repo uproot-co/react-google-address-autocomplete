@@ -45,7 +45,7 @@ const AddressDropdown = ({
   boundsReference,
   onSelect,
   onClickOutside,
-  pinIcon = 'x',
+  pinIcon,
   setAddressHasBeenSelected,
   setIsDropdownOpen,
   userDefinedStyles = {}
