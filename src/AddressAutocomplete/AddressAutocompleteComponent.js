@@ -8,7 +8,11 @@ import styled from 'styled-components'
 const AddressAutocompleteWrapper = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+`
+
+const InputWrapper = styled.div`
+  width: 90%;
 `
 
 const ReactGoogleAddressAutocomplete = ({
@@ -107,17 +111,19 @@ const ReactGoogleAddressAutocomplete = ({
   return (
     <div>
       <AddressAutocompleteWrapper>
-        {CustomInput ? (
-          <CustomInput {...customInputProps} {...RGAAInputProps} />
-        ) : (
-          <DefaultInput
-            {...RGAAInputProps}
-            placeholder={inputPlaceholder}
-            autoFocus={inputAutoFocus}
-            error={inputAddressError}
-            userDefinedStyles={inputStyles}
-          />
-        )}
+        <InputWrapper>
+          {CustomInput ? (
+            <CustomInput {...customInputProps} {...RGAAInputProps} />
+          ) : (
+            <DefaultInput
+              {...RGAAInputProps}
+              placeholder={inputPlaceholder}
+              autoFocus={inputAutoFocus}
+              error={inputAddressError}
+              userDefinedStyles={inputStyles}
+            />
+          )}
+        </InputWrapper>
         {toggleIcon && clearX && (
           <Toggle handleToggle={handleToggle} toggleIcon={toggleIcon} />
         )}
