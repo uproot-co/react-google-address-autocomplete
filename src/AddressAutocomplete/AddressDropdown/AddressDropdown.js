@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom'
 
 const AddressDropdownContainer = styled.div`
   position: absolute;
-  padding-left: 10px;
   width: 100%;
   background-color: #fefefe;
   border: 1px solid #e6e6e6;
@@ -77,29 +76,6 @@ const AddressDropdown = ({
       window.innerHeight - (yPosition + height) >= dropdownInitialHeight
     predictions = !showAtBottom ? _reverse([...predictions]) : predictions
   }
-
-  // useOnClickOutside(onClickOutside, [dropdownDivRef])
-
-  // const [showAtBottom, showAtTop, threshold] = [60, -174, 250] // Offset of the direction at which to show dropdown
-  // let [xPosition, yPosition] = [0, 0] // X & Y coordinates in which to position the dropdown
-
-  // let offset = 0,
-  //   refWidth = 0,
-  //   addresses = predictions
-
-  // if (domRect) {
-  //   const { x, y, width } = domRect
-
-  //   xPosition = x
-  //   yPosition = y
-  //   refWidth = width
-
-  //   // Check how close the component bounds are from the bottom of the page,
-  //   // to determine the direction in which the dropdown should render, and order of matched addresses
-  //   offset =
-  //     window.innerHeight - yPosition <= threshold ? showAtTop : showAtBottom
-  //   addresses = Math.sign(offset) === -1 ? _reverse([...addresses]) : addresses
-  // }
 
   return ReactDOM.createPortal(
     <div

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import DefaultInput from './Input'
 import AddressDropdown from './AddressDropdown'
 import Toggle from './Toggle'
@@ -9,18 +9,6 @@ const AddressAutocompleteWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
-`
-
-const InputFieldWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-right: 5px;
-`
-
-const InputDiv = styled.div`
-  width: 100%;
-  overflow: hidden;
-  position: relative;
 `
 
 const ReactGoogleAddressAutocomplete = ({
@@ -119,27 +107,23 @@ const ReactGoogleAddressAutocomplete = ({
   return (
     <div>
       <AddressAutocompleteWrapper>
-        <InputFieldWrapper>
-          <InputDiv>
-            {CustomInput ? (
-              <CustomInput {...customInputProps} {...RGAAInputProps} />
-            ) : (
-              <DefaultInput
-                {...RGAAInputProps}
-                placeholder={inputPlaceholder}
-                autoFocus={inputAutoFocus}
-                error={inputAddressError}
-                userDefinedStyles={inputStyles}
-              />
-            )}
-          </InputDiv>
-          {toggleIcon && clearX && (
-            <Toggle handleToggle={handleToggle} toggleIcon={toggleIcon} />
-          )}
-          {useDefaultToggleIcon && clearX && (
-            <Toggle handleToggle={handleToggle} toggleIcon={'\u24E7'} />
-          )}
-        </InputFieldWrapper>
+        {CustomInput ? (
+          <CustomInput {...customInputProps} {...RGAAInputProps} />
+        ) : (
+          <DefaultInput
+            {...RGAAInputProps}
+            placeholder={inputPlaceholder}
+            autoFocus={inputAutoFocus}
+            error={inputAddressError}
+            userDefinedStyles={inputStyles}
+          />
+        )}
+        {toggleIcon && clearX && (
+          <Toggle handleToggle={handleToggle} toggleIcon={toggleIcon} />
+        )}
+        {useDefaultToggleIcon && clearX && (
+          <Toggle handleToggle={handleToggle} toggleIcon={'\u24E7'} />
+        )}
         {customSubmitButton && customSubmitButton}
         {displayDefaultSubmitButton && (
           <DefaultSubmitButton

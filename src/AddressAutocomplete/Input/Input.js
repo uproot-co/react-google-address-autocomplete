@@ -1,6 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const InputFieldWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  border-radius: 0.25rem;
+  overflow: hidden;
+
+  &.outline {
+    border: 0.0625rem solid #808289;
+  }
+`
+
+const InputDiv = styled.div`
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+`
+
 const StyledInput = styled.input`
   width: 100%;
   outline: none;
@@ -8,6 +25,14 @@ const StyledInput = styled.input`
   overflow: hidden;
   position: absolute;
   bottom: 0;
+  filter: none;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    box-shadow: 0 0 0 1000px rgb(255, 255, 255) inset;
+    -webkit-box-shadow: 0 0 0 1000px rgb(255, 255, 255) inset;
+  }
 `
 
 const defaultStyles = {
@@ -15,14 +40,6 @@ const defaultStyles = {
   paddingBottom: '5px',
   fontSize: '1.3rem'
 }
-
-// {
-//   useDefaultToggleIcon && clearX && (
-//     <ToggleButton onClick={handleToggle} type='button'>
-//       <ToggleIconDiv>{'\u24E7'}</ToggleIconDiv>
-//     </ToggleButton>
-//   )
-// }
 
 const Input = ({
   placeholder = 'Please enter an address',
@@ -34,18 +51,22 @@ const Input = ({
   userDefinedStyles
 }) => {
   return (
-    <StyledInput
-      style={userDefinedStyles || defaultStyles}
-      type='text'
-      value={value}
-      autoFocus={autoFocus || true}
-      disabled={isDisabled}
-      placeholder={placeholder}
-      name='search_address'
-      error={error}
-      onChange={onChange}
-      autoComplete='off'
-    />
+    <InputFieldWrapper>
+      <InputDiv>
+        <StyledInput
+          style={userDefinedStyles || defaultStyles}
+          type='text'
+          value={value}
+          autoFocus={autoFocus || true}
+          disabled={isDisabled}
+          placeholder={placeholder}
+          name='search_address'
+          error={error}
+          onChange={onChange}
+          autoComplete='off'
+        />
+      </InputDiv>
+    </InputFieldWrapper>
   )
 }
 
