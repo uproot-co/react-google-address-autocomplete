@@ -98,11 +98,10 @@ const AddressDropdown = ({
               style={{
                 cursor: 'pointer'
               }}
+              onClick={() => onSelect(item)}
             >
               {pinIcon && <Icon>{pinIcon}</Icon>}
-              <Address onClick={() => onSelect(item)}>
-                {item.matchedAddress}
-              </Address>
+              <Address>{item.matchedAddress}</Address>
               <hr />
             </AddressDropdownDiv>
           )
