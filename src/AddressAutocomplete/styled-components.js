@@ -23,21 +23,22 @@ const AddressDropdownContainer = styled.div`
   min-width: 250px;
 `
 
-const AddressDropdownDiv = styled.div`
-  border-bottom: 1px solid #e6e6e6;
-  color: #383a3e;
-  padding: 8px 5px;
-  font-size: 0.88rem;
-  display: inline-flex;
-  justify-content: left;
-  align-items: center;
-  width: 100%;
-  cursor: pointer;
-  &:hover {
-    background-color: #84aea9;
-    color: #fff;
+const AddressDropdownDiv = styled.div((props) => ({
+  borderBottom: '1px solid #e6e6e6',
+  color: '#383a3e',
+  padding: '8px 5px',
+  fontSize: '0.88rem',
+  display: 'inline-flex',
+  justifyContent: 'left',
+  alignItems: 'center',
+  width: '100%',
+  cursor: 'pointer',
+  ':hover': {
+    background: '#84aea9',
+    color: '#fff',
+    ...props.userDefinedOnHoverStyles
   }
-`
+}))
 
 const Button = styled.button`
   font-size: 1.3rem;

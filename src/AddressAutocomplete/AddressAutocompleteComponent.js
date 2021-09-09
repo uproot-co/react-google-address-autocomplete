@@ -10,7 +10,6 @@ import {
 } from './styled-components'
 
 const ReactGoogleAddressAutocomplete = ({
-  boundsReference,
   fetchPredictions, // required function that accepts an inputValue (string) and returns an array of objects, each with a "matchedAddress" property
   CustomInput,
   customInputProps,
@@ -30,6 +29,8 @@ const ReactGoogleAddressAutocomplete = ({
   pinIcon,
   inputStyles,
   submitButtonStyles,
+  addressDropdownStyles,
+  addressDropdownOnHoverStyles,
   error
 }) => {
   const [inputAddressError, setInputAddressError] = useState('')
@@ -151,6 +152,8 @@ const ReactGoogleAddressAutocomplete = ({
           onClickOutside={() => setIsDropdownOpen(false)}
           pinIcon={pinIcon}
           setIsDropdownOpen={setIsDropdownOpen}
+          userDefinedStyles={addressDropdownStyles}
+          userDefinedOnHoverStyles={addressDropdownOnHoverStyles}
         />
       ) : null}
     </AddressAutocompleteWrapper>

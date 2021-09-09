@@ -17,7 +17,8 @@ const AddressDropdown = ({
   pinIcon,
   setAddressHasBeenSelected,
   setIsDropdownOpen,
-  userDefinedStyles = {}
+  userDefinedStyles = {},
+  userDefinedOnHoverStyles
 }) => {
   const domRect = boundsReference?.current?.getBoundingClientRect()
   const dropdownDivRef = useRef(null)
@@ -64,9 +65,13 @@ const AddressDropdown = ({
           return (
             <AddressDropdownDiv
               key={index}
-              style={{
-                cursor: 'pointer'
-              }}
+              style={
+                ({
+                  cursor: 'pointer'
+                },
+                { ...userDefinedStyles })
+              }
+              userDefinedOnHoverStyles={userDefinedOnHoverStyles}
               onClick={() => onSelect(item)}
             >
               {pinIcon && <Icon>{pinIcon}</Icon>}
