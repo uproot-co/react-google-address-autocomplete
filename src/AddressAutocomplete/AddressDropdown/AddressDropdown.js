@@ -1,44 +1,13 @@
 import React, { useRef } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import _reverse from 'lodash/reverse'
-import styled from 'styled-components'
 import ReactDOM from 'react-dom'
-
-const AddressDropdownContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  background-color: #fefefe;
-  border: 1px solid #e6e6e6;
-  border-radius: 0 0 3px 3px;
-  min-width: 250px;
-`
-
-const AddressDropdownDiv = styled.div`
-  border-bottom: 1px solid #e6e6e6;
-  color: #383a3e;
-  padding: 8px 5px;
-  font-size: 0.88rem;
-  display: inline-flex;
-  justify-content: left;
-  align-items: center;
-  width: 100%;
-  cursor: pointer;
-  &:hover {
-    background-color: #84aea9;
-    color: #fff;
-  }
-`
-const Address = styled.div`
-  white-space: nowrap;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: calc(100% - 30px);
-`
-const Icon = styled.div`
-  margin-right: 5px;
-  font-size: 1.4rem;
-`
+import {
+  AddressDropdownContainer,
+  AddressDropdownDiv,
+  Address,
+  Icon
+} from '../styled-components'
 
 const AddressDropdown = ({
   predictions = [],

@@ -3,26 +3,11 @@ import DefaultInput from './DefaultInput'
 import AddressDropdown from './AddressDropdown'
 import Toggle from './Toggle'
 import DefaultSubmitButton from './SubmitButton'
-import styled from 'styled-components'
-
-const AddressAutocompleteWrapper = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-`
-
-const InputFieldWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: ${(props) =>
-    props.usingCustomInput ? 'none' : '1px solid black'};
-`
-
-const InputWrapper = styled.div`
-  width: ${(props) =>
-    props.toggleIcon || props.useDefaultToggleIcon ? '90%' : '100%'};
-`
+import {
+  AddressAutocompleteWrapper,
+  InputFieldWrapper,
+  InputWrapper
+} from './styled-components'
 
 const ReactGoogleAddressAutocomplete = ({
   boundsReference,

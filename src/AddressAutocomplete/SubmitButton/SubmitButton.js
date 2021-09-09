@@ -1,13 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const Button = styled.button`
-  font-size: 1.3rem;
-  padding: 0.5rem 3rem;
-  height: auto;
-  margin-left: 5px;
-  opacity: ${(props) => (props.isDisabled ? 0.8 : 1)};
-`
+import { Button } from '../styled-components'
 
 const SubmitButton = ({
   isDisabled = false,
