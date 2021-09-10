@@ -31,7 +31,8 @@ const ReactGoogleAddressAutocomplete = ({
   submitButtonStyles,
   addressDropdownStyles,
   addressDropdownOnHoverStyles,
-  error
+  error,
+  inputErrorMessage = 'Please enter an address'
 }) => {
   const [inputAddressError, setInputAddressError] = useState('')
   const [selectedAddress, setSelectedAddress] = useState('')
@@ -97,7 +98,7 @@ const ReactGoogleAddressAutocomplete = ({
   const handleOnSubmit = () => {
     inputValue
       ? onClickSubmitButton(inputValue)
-      : setInputAddressError('Please enter an address')
+      : setInputAddressError(inputErrorMessage)
   }
 
   const RGAAInputProps = {
@@ -122,7 +123,7 @@ const ReactGoogleAddressAutocomplete = ({
               {...RGAAInputProps}
               placeholder={inputPlaceholder}
               autoFocus={inputAutoFocus}
-              error={inputAddressError}
+              error={error}
               userDefinedStyles={inputStyles}
             />
           )}

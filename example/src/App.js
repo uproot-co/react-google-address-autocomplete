@@ -80,7 +80,6 @@ const App = () => {
           submitButtonStyles={{
             background: 'blue',
             color: 'white',
-            fontSize: '10px',
             border: 'none',
             borderRadius: '10px',
             fontFamily: 'Baskerville',
