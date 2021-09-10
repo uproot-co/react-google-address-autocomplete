@@ -82,7 +82,7 @@ const AddressDropdown = ({
         })}
       </AddressDropdownContainer>
     </div>,
-    document.getElementById('root')
+    document.body
   )
 }
 
