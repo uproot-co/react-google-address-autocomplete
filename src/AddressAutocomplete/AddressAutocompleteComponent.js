@@ -31,13 +31,13 @@ const ReactGoogleAddressAutocomplete = ({
   submitButtonStyles,
   addressDropdownStyles,
   addressDropdownOnHoverStyles,
-  error,
   inputErrorMessage = 'Please enter an address'
 }) => {
-  const [inputAddressError, setInputAddressError] = useState('')
-  const [selectedAddress, setSelectedAddress] = useState('')
-  const [predictions, setPredictions] = useState([])
   const [inputValue, setInputValue] = useState('')
+  const [selectedAddress, setSelectedAddress] = useState('')
+  const [inputAddressError, setInputAddressError] = useState('')
+  const [placeholder, setPlaceholder] = useState(inputPlaceholder)
+  const [predictions, setPredictions] = useState([])
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [clearX, setClearX] = useState(false)
 
@@ -66,10 +66,6 @@ const ReactGoogleAddressAutocomplete = ({
   }, [inputValue])
 
   useEffect(() => {
-    error && console.log(error)
-  }, [error])
-
-  useEffect(() => {
     selectedAddress.length &&
       onAddressSelected &&
       onAddressSelected(selectedAddress)
@@ -78,6 +74,7 @@ const ReactGoogleAddressAutocomplete = ({
   const handleOnChange = (event) => {
     userOnInputChange && userOnInputChange()
     setInputAddressError('')
+    setPlaceholder(inputPlaceholder)
     setSelectedAddress('')
     if (event?.target) setInputValue(event.target.value)
   }
@@ -98,7 +95,7 @@ const ReactGoogleAddressAutocomplete = ({
   const handleOnSubmit = () => {
     inputValue
       ? onClickSubmitButton(inputValue)
-      : setInputAddressError(inputErrorMessage)
+      : setPlaceholder(inputErrorMessage)
   }
 
   const RGAAInputProps = {
@@ -121,9 +118,8 @@ const ReactGoogleAddressAutocomplete = ({
           ) : (
             <DefaultInput
               {...RGAAInputProps}
-              placeholder={inputPlaceholder}
+              placeholder={placeholder}
               autoFocus={inputAutoFocus}
-              error={error}
               userDefinedStyles={inputStyles}
             />
           )}

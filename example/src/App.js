@@ -3,33 +3,33 @@ import React from 'react'
 import ReactGoogleAddressAutocomplete from 'react-google-address-autocomplete'
 import 'react-google-address-autocomplete/dist/index.css'
 
-const fetchPredictions = () => {
-  return [
-    { matchedAddress: '123 Main Street, Anytown, CO, USA' },
-    { matchedAddress: '456 Back Alley, Anothertown, UT, USA' },
-    { matchedAddress: '789 Route 66, Outtahere, OK, USA' },
-    { matchedAddress: 'Somewhere Over the Rainbow' },
-    { matchedAddress: '157 Riverside Avenue, Champaign, IL' },
-    { matchedAddress: '2120 South Michigan Avenue, London, UK' },
-    { matchedAddress: '57th Street, Longbranch, NJ' }
-  ]
-}
-
-const onClickSubmitButton = (address) => {
-  console.log(`Address submitted: ${address}`)
-}
-
-const userAddress = '1 Main St., My Town, USA (address provided by user)'
-
 const App = () => {
+  const onClickSubmitButton = (address) => {
+    console.log(`Address submitted: ${address}`)
+  }
+
+  const fetchPredictions = () => {
+    return [
+      { matchedAddress: '123 Main Street, Anytown, CO, USA' },
+      { matchedAddress: '456 Back Alley, Anothertown, UT, USA' },
+      { matchedAddress: '789 Route 66, Outtahere, OK, USA' },
+      { matchedAddress: 'Somewhere Over the Rainbow' },
+      { matchedAddress: '157 Riverside Avenue, Champaign, IL' },
+      { matchedAddress: '2120 South Michigan Avenue, London, UK' },
+      { matchedAddress: '57th Street, Longbranch, NJ' }
+    ]
+  }
+
+  const userAddress = '1 Main St., My Town, USA (address provided by user)'
+
   return (
     <React.Fragment>
       <h1 style={{ textAlign: 'center' }}>
         React Google Address Autocomplete Examples
       </h1>
       <h3 style={{ fontSize: '15px', textAlign: 'center' }}>
-        (For these examples, clicking "Submit" will console.log the selected
-        address.)
+        For these examples, clicking "Submit" will console.log the selected
+        address
       </h3>
 
       <h2
@@ -47,7 +47,7 @@ const App = () => {
         style={{
           width: '100%',
           maxWidth: '600px',
-          margin: '8vh auto'
+          margin: '10vh auto'
         }}
       >
         <ReactGoogleAddressAutocomplete
@@ -73,7 +73,7 @@ const App = () => {
           width: '100%',
           maxWidth: '600px',
           margin: 'auto',
-          marginTop: '8vh'
+          marginTop: '10vh'
         }}
       >
         <ReactGoogleAddressAutocomplete

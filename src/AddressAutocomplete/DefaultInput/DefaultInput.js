@@ -16,7 +16,6 @@ const DefaultInput = ({
   autoFocus = true,
   isDisabled,
   onChange,
-  error,
   userDefinedStyles
 }) => {
   return (
@@ -30,7 +29,6 @@ const DefaultInput = ({
           disabled={isDisabled}
           placeholder={placeholder}
           name='search_address'
-          error={error}
           onChange={onChange}
           autoComplete='off'
         />
