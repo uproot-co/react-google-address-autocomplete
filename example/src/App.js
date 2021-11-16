@@ -1,7 +1,6 @@
 import React from 'react'
 
-import ReactGoogleAddressAutocomplete from 'react-google-address-autocomplete'
-import 'react-google-address-autocomplete/dist/index.css'
+import ReactGoogleAddressAutocomplete from 'react-google-address-autocomplete/dist'
 
 const App = () => {
   const onClickSubmitButton = (address) => {

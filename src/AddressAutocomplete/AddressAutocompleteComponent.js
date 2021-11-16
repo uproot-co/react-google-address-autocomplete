@@ -100,8 +100,13 @@ const ReactGoogleAddressAutocomplete = ({
 
   const RGAAInputProps = {
     [onChangeName]: handleOnChange,
-    value: inputAddressError || selectedAddress || inputValue
+    value: inputAddressError || selectedAddress || inputValue,
+    placeholder: placeholder,
+    autoFocus: inputAutoFocus,
+    userDefinedStyles: inputStyles
   }
+
+  const Input = CustomInput || DefaultInput
 
   return (
     <AddressAutocompleteWrapper>
@@ -113,16 +118,7 @@ const ReactGoogleAddressAutocomplete = ({
           toggleIcon={toggleIcon}
           useDefaultToggleIcon={useDefaultToggleIcon}
         >
-          {CustomInput ? (
-            <CustomInput {...customInputProps} {...RGAAInputProps} />
-          ) : (
-            <DefaultInput
-              {...RGAAInputProps}
-              placeholder={placeholder}
-              autoFocus={inputAutoFocus}
-              userDefinedStyles={inputStyles}
-            />
-          )}
+          <Input {...RGAAInputProps} {...customInputProps} />
         </InputWrapper>
         {toggleIcon && clearX && (
           <Toggle handleToggle={handleToggle} toggleIcon={toggleIcon} />
