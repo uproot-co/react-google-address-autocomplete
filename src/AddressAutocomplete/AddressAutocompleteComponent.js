@@ -20,7 +20,6 @@ const ReactGoogleAddressAutocomplete = ({
   toggleIcon,
   userOnToggle,
   useDefaultToggleIcon = false,
-  customSubmitButton,
   displayDefaultSubmitButton = false,
   defaultSubmitButtonIsDisabled,
   selectedAddress: selectedAddressFromUser = '',
@@ -127,8 +126,6 @@ const ReactGoogleAddressAutocomplete = ({
           <Toggle handleToggle={handleToggle} toggleIcon={'\u24E7'} />
         )}
       </InputFieldWrapper>
-      {customSubmitButton && customSubmitButton}
-
       {displayDefaultSubmitButton && (
         <DefaultSubmitButton
           isDisabled={defaultSubmitButtonIsDisabled}
