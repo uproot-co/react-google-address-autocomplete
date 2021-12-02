@@ -1,4 +1,4 @@
-# react-google-address-autocomplete
+# google-address-autocomplete-react
 
 > Made with create-react-library
 
@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save react-google-address-autocomplete
+npm install --save google-address-autocomplete-react
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install --save react-google-address-autocomplete
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-google-address-autocomplete'
-import 'react-google-address-autocomplete/dist/index.css'
+import MyComponent from 'google-address-autocomplete-react'
+import 'google-address-autocomplete-react/dist/index.css'
 
 class Example extends Component {
   render() {

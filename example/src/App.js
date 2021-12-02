@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ReactGoogleAddressAutocomplete from 'react-google-address-autocomplete/dist'
+import GoogleAddressAutocompleteReact from 'google-address-autocomplete-react/dist'
 
 const App = () => {
   const onClickSubmitButton = (address) => {
@@ -49,7 +49,7 @@ const App = () => {
           margin: '10vh auto'
         }}
       >
-        <ReactGoogleAddressAutocomplete
+        <GoogleAddressAutocompleteReact
           fetchPredictions={fetchPredictions}
           onClickSubmitButton={onClickSubmitButton}
           displayDefaultSubmitButton={true}
@@ -75,7 +75,7 @@ const App = () => {
           marginTop: '10vh'
         }}
       >
-        <ReactGoogleAddressAutocomplete
+        <GoogleAddressAutocompleteReact
           submitButtonStyles={{
             background: 'blue',
             color: 'white',

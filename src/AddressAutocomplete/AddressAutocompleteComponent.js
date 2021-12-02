@@ -9,7 +9,7 @@ import {
   InputWrapper
 } from './styled-components'
 
-const ReactGoogleAddressAutocomplete = ({
+const GoogleAddressAutocompleteReact = ({
   fetchPredictions, // required function that accepts an inputValue (string) and returns an array of objects, each with a "matchedAddress" property
   CustomInput,
   customInputProps,
@@ -150,4 +150,4 @@ const ReactGoogleAddressAutocomplete = ({
   )
 }
 
-export default ReactGoogleAddressAutocomplete
+export default GoogleAddressAutocompleteReact
