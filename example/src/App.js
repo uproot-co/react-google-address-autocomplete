@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import GoogleAddressAutocompleteReact from 'google-address-autocomplete-react/dist'
+import GoogleAddressAutocompleteReact from 'google-address-autocomplete-react'
+import 'google-address-autocomplete-react/dist/index.css'
 
 const App = () => {
-  const onClickSubmitButton = (address) => {
-    console.log(`Address submitted: ${address}`)
+  const [selectedAddress, setSelectedAddress] = useState()
+
+  const onAddressSelected = (address) => {
+    setSelectedAddress(address)
+  }
+
+  const onClickSubmitButton = () => {
+    console.log(`Address submitted: ${selectedAddress}`)
   }
 
   const fetchPredictions = () => {
@@ -51,11 +58,11 @@ const App = () => {
       >
         <GoogleAddressAutocompleteReact
           fetchPredictions={fetchPredictions}
-          onClickSubmitButton={onClickSubmitButton}
-          displayDefaultSubmitButton={true}
+          onAddressSelected={onAddressSelected}
           useDefaultToggleIcon={true}
           inputPlaceholder='Search by address, zipcode, city or state'
         />
+        <button onSubmit={onClickSubmitButton}>Submit</button>
       </div>
       <h2
         style={{
@@ -96,10 +103,8 @@ const App = () => {
             fontWeight: 'bold'
           }}
           fetchPredictions={fetchPredictions}
-          onClickSubmitButton={onClickSubmitButton}
-          displayDefaultSubmitButton={true}
           useDefaultToggleIcon={true}
-          selectedAddress={userAddress}
+          initialAddress={userAddress}
           inputPlaceholder='Search by address, zipcode, city or state'
         />
       </div>

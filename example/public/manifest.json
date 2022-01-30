@@ -1,6 +1,6 @@
 {
-  "short_name": "react-google-address-autocomplete",
-  "name": "react-google-address-autocomplete",
+  "short_name": "google-address-autocomplete-react",
+  "name": "google-address-autocomplete-react",
   "icons": [
     {
       "src": "favicon.ico",
