@@ -12,9 +12,9 @@ npm install google-address-autocomplete-react
 
 ## Usage
 
-```tsx
+```jsx
 import React from 'react'
-import GoogleAddressAutocompleteReact from 'google-address-autocomplete-react/dist';
+import GoogleAddressAutocompleteReact from 'google-address-autocomplete-react';
 
 const Example = () => {
 
@@ -34,33 +34,50 @@ const Example = () => {
           onAddressSelected={onAddressSelected}
         />
   )
-  }
-
-Required Props:
-
-  fetchPredictions:  (function) Function that accepts a string and returns an array of objects, each with a "matchedAddress" property
-  onAddressSelected: (function) -- Function that accepts the selected address (string)
-
-
-Optional Props:
-
-  CustomInput
-  customInputProps (object)
-  onChangeName (string) -- Use to specify a custom input's onChange function only if that function is called something other than onChange (for example, an Ionic input's onChangeName is "onIonChange")
-  userOnInputChange (function) -- Any additional functionality that an input change needs to trigger
-  inputPlaceholder (string)
-  inputAutoFocus (boolean) -- Default value is "true"
-  toggleIcon
-  userOnToggle (function) -- Any additional functionality that should be triggered when the toggle icon is clicked
-  useDefaultToggleIcon (boolean) -- Default value is "false"
-  initialAddress(string) -- Can be used to initiate the component with an address.
-  pinIcon,
-  inputStyles (object)
-  addressDropdownStyles (object)
-  addressDropdownOnHoverStyles  (object)
-  inputErrorMessage (string) -- Defaults value is 'Please enter an address'
+}
 ```
+### Required Props:  
 
+  - **fetchPredictions** (function) -- Function that accepts a string and returns an array of objects, each with a "matchedAddress" property
+ 
+  - **onAddressSelected** (function) -- Function that accepts the selected address (string)
+
+<br />
+
+### Optional Props:  
+
+  - **CustomInput** (component)  
+
+  - **customInputProps** (object)  
+
+  - **onChangeName** (string) -- Necessary only if a custom input's onChange function is named something other than onChange (for example, an Ionic input&apos;s onChangeName is "onIonChange")  
+
+  - **userOnInputChange** (function) -- Any additional functionality that an input change needs to trigger  
+
+  - **inputPlaceholder** (string)  
+
+  - **inputAutoFocus** (boolean) -- Default value is "true"  
+
+  - **toggleIcon** (icon or string)
+
+  - **userOnToggle** (function) -- Any additional functionality that should be triggered when the toggle icon is clicked  
+
+  - **useDefaultToggleIcon** (boolean) -- Default value is "false"  
+
+  - **initialAddress** (string) -- Can be used to initiate the component with an address  
+
+  - **pinIcon** (icon or string)
+
+  - **inputStyles** (object)  
+
+  - **addressDropdownStyles** (object)  
+
+  - **addressDropdownOnHoverStyles** (object)  
+
+  - **inputErrorMessage** (string) -- Default value is 'Please enter an address'
+
+<br />
+<br />
 ## License
 
 MIT © [Uproot](https://github.com/uproot-co)
