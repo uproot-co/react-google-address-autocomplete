@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import ReactGoogleAddressAutocomplete from 'react-google-address-autocomplete'
-import 'react-google-address-autocomplete/dist/index.css'
+import GoogleAddressAutocompleteReact from 'google-address-autocomplete-react'
+import 'google-address-autocomplete-react/dist/index.css'
 
 const App = () => {
-  const onClickSubmitButton = (address) => {
-    console.log(`Address submitted: ${address}`)
+  const [selectedAddress, setSelectedAddress] = useState()
+
+  const onAddressSelected = (address) => {
+    setSelectedAddress(address)
+  }
+
+  const onClickSubmitButton = () => {
+    console.log(`Address submitted: ${selectedAddress}`)
   }
 
   const fetchPredictions = () => {
@@ -50,13 +56,13 @@ const App = () => {
           margin: '10vh auto'
         }}
       >
-        <ReactGoogleAddressAutocomplete
+        <GoogleAddressAutocompleteReact
           fetchPredictions={fetchPredictions}
-          onClickSubmitButton={onClickSubmitButton}
-          displayDefaultSubmitButton={true}
+          onAddressSelected={onAddressSelected}
           useDefaultToggleIcon={true}
           inputPlaceholder='Search by address, zipcode, city or state'
         />
+        <button onSubmit={onClickSubmitButton}>Submit</button>
       </div>
       <h2
         style={{
@@ -76,7 +82,7 @@ const App = () => {
           marginTop: '10vh'
         }}
       >
-        <ReactGoogleAddressAutocomplete
+        <GoogleAddressAutocompleteReact
           submitButtonStyles={{
             background: 'blue',
             color: 'white',
@@ -97,10 +103,8 @@ const App = () => {
             fontWeight: 'bold'
           }}
           fetchPredictions={fetchPredictions}
-          onClickSubmitButton={onClickSubmitButton}
-          displayDefaultSubmitButton={true}
           useDefaultToggleIcon={true}
-          selectedAddress={userAddress}
+          initialAddress={userAddress}
           inputPlaceholder='Search by address, zipcode, city or state'
         />
       </div>

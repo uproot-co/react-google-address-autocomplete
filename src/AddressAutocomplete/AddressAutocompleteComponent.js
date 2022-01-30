@@ -9,7 +9,7 @@ import {
   InputWrapper
 } from './styled-components'
 
-const ReactGoogleAddressAutocomplete = ({
+const GoogleAddressAutocompleteReact = ({
   fetchPredictions, // required function that accepts an inputValue (string) and returns an array of objects, each with a "matchedAddress" property
   CustomInput,
   customInputProps,
@@ -20,7 +20,6 @@ const ReactGoogleAddressAutocomplete = ({
   toggleIcon,
   userOnToggle,
   useDefaultToggleIcon = false,
-  customSubmitButton,
   displayDefaultSubmitButton = false,
   defaultSubmitButtonIsDisabled,
   selectedAddress: selectedAddressFromUser = '',
@@ -100,8 +99,13 @@ const ReactGoogleAddressAutocomplete = ({
 
   const RGAAInputProps = {
     [onChangeName]: handleOnChange,
-    value: inputAddressError || selectedAddress || inputValue
+    value: inputAddressError || selectedAddress || inputValue,
+    placeholder: placeholder,
+    autoFocus: inputAutoFocus,
+    userDefinedStyles: inputStyles
   }
+
+  const Input = CustomInput || DefaultInput
 
   return (
     <AddressAutocompleteWrapper>
@@ -113,16 +117,7 @@ const ReactGoogleAddressAutocomplete = ({
           toggleIcon={toggleIcon}
           useDefaultToggleIcon={useDefaultToggleIcon}
         >
-          {CustomInput ? (
-            <CustomInput {...customInputProps} {...RGAAInputProps} />
-          ) : (
-            <DefaultInput
-              {...RGAAInputProps}
-              placeholder={placeholder}
-              autoFocus={inputAutoFocus}
-              userDefinedStyles={inputStyles}
-            />
-          )}
+          <Input {...RGAAInputProps} {...customInputProps} />
         </InputWrapper>
         {toggleIcon && clearX && (
           <Toggle handleToggle={handleToggle} toggleIcon={toggleIcon} />
@@ -131,8 +126,6 @@ const ReactGoogleAddressAutocomplete = ({
           <Toggle handleToggle={handleToggle} toggleIcon={'\u24E7'} />
         )}
       </InputFieldWrapper>
-      {customSubmitButton && customSubmitButton}
-
       {displayDefaultSubmitButton && (
         <DefaultSubmitButton
           isDisabled={defaultSubmitButtonIsDisabled}
@@ -157,4 +150,4 @@ const ReactGoogleAddressAutocomplete = ({
   )
 }
 
-export default ReactGoogleAddressAutocomplete
+export default GoogleAddressAutocompleteReact
