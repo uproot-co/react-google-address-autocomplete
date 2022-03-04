@@ -1,11 +1,12 @@
 import React from 'react'
 
-import ReactGoogleAddressAutocomplete from 'react-google-address-autocomplete'
-import 'react-google-address-autocomplete/dist/index.css'
+import ReactGoogleAddressAutocomplete from 'google-address-autocomplete-react'
 
 const App = () => {
-  const onClickSubmitButton = (address) => {
-    console.log(`Address submitted: ${address}`)
+  var selectedAddress;
+
+  const onClickSubmitButton = () => {
+    console.log(`Address submitted: ${selectedAddress}`)
   }
 
   const fetchPredictions = () => {
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <React.Fragment>
       <h1 style={{ textAlign: 'center' }}>
-        React Google Address Autocomplete Examples
+        google-address-autocomplete-react Examples
       </h1>
       <h3 style={{ fontSize: '15px', textAlign: 'center' }}>
         For these examples, clicking "Submit" will console.log the selected
@@ -39,25 +40,26 @@ const App = () => {
           marginTop: '18vh'
         }}
       >
-        Example using default input, toggle, and submit button, with default
-        styles:
+        Example with default styles and default toggle:
       </h2>
-
-      <div
-        style={{
+      <div style={{
           width: '100%',
           maxWidth: '600px',
-          margin: '10vh auto'
-        }}
-      >
+          margin: '10vh auto',
+          minHeight: '30px',
+          display: 'flex'}}>
+        <div style={{width: '80%', paddingRight: '5px'}}>
         <ReactGoogleAddressAutocomplete
           fetchPredictions={fetchPredictions}
-          onClickSubmitButton={onClickSubmitButton}
-          displayDefaultSubmitButton={true}
           useDefaultToggleIcon={true}
           inputPlaceholder='Search by address, zipcode, city or state'
+          onAddressSelected={(address) => selectedAddress=address}
         />
       </div>
+      <button onClick={onClickSubmitButton} style={{display: 'inline', width: '20%', justifyContent: 'center', alignContent: 'center'}}>Submit</button>
+      </div>
+
+      
       <h2
         style={{
           fontSize: '1.2rem',
@@ -65,26 +67,17 @@ const App = () => {
           marginTop: '18vh'
         }}
       >
-        Example using default input, toggle, and submit button, passing in
-        custom style options:
+        Example passing in custom styles, an initial selectedAddress and custom toggleIcon:
       </h2>
-      <div
-        style={{
+      
+      <div style={{
           width: '100%',
           maxWidth: '600px',
-          margin: 'auto',
-          marginTop: '10vh'
-        }}
-      >
+          margin: '10vh auto',
+          display: 'flex',
+          minHeight: '30px'}}>
+        <div style={{width: '80%', paddingRight: '5px'}}>
         <ReactGoogleAddressAutocomplete
-          submitButtonStyles={{
-            background: 'blue',
-            color: 'white',
-            border: 'none',
-            borderRadius: '10px',
-            fontFamily: 'Baskerville',
-            fontSize: '1.2rem'
-          }}
           inputStyles={{
             fontFamily: 'Baskerville',
             fontSize: '1rem'
@@ -97,12 +90,14 @@ const App = () => {
             fontWeight: 'bold'
           }}
           fetchPredictions={fetchPredictions}
-          onClickSubmitButton={onClickSubmitButton}
-          displayDefaultSubmitButton={true}
-          useDefaultToggleIcon={true}
+          toggleIcon="X"
           selectedAddress={userAddress}
           inputPlaceholder='Search by address, zipcode, city or state'
+          onAddressSelected={(address) => selectedAddress=address}
+
         />
+        </div>
+        <button onClick={onClickSubmitButton} style={{width: '20%'}}>Submit</button>
       </div>
     </React.Fragment>
   )
